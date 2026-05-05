@@ -5,6 +5,10 @@ import AdminDashboard from './pages/AdminDashboard';
 import NotificationsCenter from './pages/NotificationsCenter';
 import AccountProfile from './pages/AccountProfile';
 import UserManagement from './pages/UserManagement';
+import UserDetails from './pages/UserDetails';
+import AstrologerManagement from './pages/AstrologerManagement';
+import AstrologerDetails from './pages/AstrologerDetails';
+import ChatManagement from './pages/ChatManagement';
 
 // Generic Component for pages with no data yet
 const GenericModule = ({ title }) => (
@@ -23,8 +27,10 @@ function App() {
           <Route path="/" element={<AdminDashboard />} />
           <Route path="/profile" element={<AccountProfile />} />
           <Route path="/users" element={<UserManagement />} />
-          <Route path="/astrologers" element={<GenericModule title="Astrologer Management" />} />
-          <Route path="/chat" element={<GenericModule title="Chat / Call / Video Management" />} />
+          <Route path="/users/:userId" element={<UserDetails />} />
+          <Route path="/astrologers" element={<AstrologerManagement />} />
+          <Route path="/astrologers/:id" element={<AstrologerDetails />} />
+          <Route path="/chat" element={<ChatManagement />} />
           <Route path="/wallet" element={<GenericModule title="Wallet & Payments" />} />
           <Route path="/bookings" element={<GenericModule title="Booking & Appointment Management" />} />
           <Route path="/reports" element={<GenericModule title="Reports & Analytics" />} />

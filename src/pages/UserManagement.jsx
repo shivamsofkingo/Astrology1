@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search, ChevronDown, Filter, Edit2, Ban, Trash2, Shield } from 'lucide-react';
 
-const UserRow = ({ name, email, avatar, date, kyc, wallet, status }) => {
+const UserRow = ({ id, name, email, avatar, date, kyc, wallet, status }) => {
+  const navigate = useNavigate();
+  
   const getKycStyle = (status) => {
     switch(status) {
       case 'VERIFIED': return 'text-[#10B981] border-[#10B981] bg-[#ECFDF5]';
@@ -23,10 +26,13 @@ const UserRow = ({ name, email, avatar, date, kyc, wallet, status }) => {
   return (
     <tr className="border-b border-slate-100 last:border-0 hover:bg-slate-50/50 transition-colors">
       <td className="py-3 px-6">
-        <div className="flex items-center gap-3">
-          <img src={avatar} alt={name} className="w-9 h-9 rounded-full object-cover border border-slate-200" />
+        <div 
+          className="flex items-center gap-3 cursor-pointer group" 
+          onClick={() => navigate(`/users/${id}`)}
+        >
+          <img src={avatar} alt={name} className="w-9 h-9 rounded-full object-cover border border-slate-200 group-hover:border-[#00BAF2] transition-colors" />
           <div>
-            <h4 className="text-[13px] font-semibold text-slate-900">{name}</h4>
+            <h4 className="text-[13px] font-semibold text-slate-900 group-hover:text-[#00BAF2] transition-colors">{name}</h4>
             <p className="text-[11px] text-slate-400">{email}</p>
           </div>
         </div>
@@ -62,14 +68,14 @@ const UserRow = ({ name, email, avatar, date, kyc, wallet, status }) => {
 
 const UserManagement = () => {
   const users = [
-    { name: 'Selene Nightfall', email: 'selene@astral.com', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80', date: 'Oct 12, 2023', kyc: 'VERIFIED', wallet: '$1,240.50', status: 'Active' },
-    { name: 'Arion Starlight', email: 'arion.s@cosmic.net', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80', date: 'Nov 05, 2023', kyc: 'PENDING', wallet: '$45.00', status: 'Active' },
-    { name: 'Lyra Moon', email: 'lyra.moon@void.io', avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80', date: 'Dec 01, 2023', kyc: 'NOT STARTED', wallet: '$0.00', status: 'Blocked' },
-    { name: 'Cassian Vesper', email: 'vesper@horizon.co', avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80', date: 'Jan 14, 2024', kyc: 'VERIFIED', wallet: '$8,450.00', status: 'Active' },
+    { id: '1', name: 'Selene Nightfall', email: 'selene@astral.com', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80', date: 'Oct 12, 2023', kyc: 'VERIFIED', wallet: '$1,240.50', status: 'Active' },
+    { id: '2', name: 'Arion Starlight', email: 'arion.s@cosmic.net', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80', date: 'Nov 05, 2023', kyc: 'PENDING', wallet: '$45.00', status: 'Active' },
+    { id: '3', name: 'Lyra Moon', email: 'lyra.moon@void.io', avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80', date: 'Dec 01, 2023', kyc: 'NOT STARTED', wallet: '$0.00', status: 'Blocked' },
+    { id: '4', name: 'Cassian Vesper', email: 'vesper@horizon.co', avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80', date: 'Jan 14, 2024', kyc: 'VERIFIED', wallet: '$8,450.00', status: 'Active' },
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <h1 className="text-2xl font-bold text-slate-900 tracking-tight">User Management</h1>
 
       {/* Filters Bar */}
@@ -123,7 +129,10 @@ const UserManagement = () => {
             </thead>
             <tbody>
               {users.map((user, index) => (
-                <UserRow key={index} {...user} />
+                <UserRow 
+                  key={index} 
+                  {...user} 
+                />
               ))}
             </tbody>
           </table>
