@@ -45,7 +45,7 @@ const AccountProfile = () => {
   return (
     <div className="space-y-6 max-w-[1000px] mx-auto pb-10">
       <div className="flex flex-col gap-1 mb-6">
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Account Profile</h1>
+        <h1 className="text-2xl font-semibold text-slate-900 tracking-tight">Account Profile</h1>
         <p className="text-sm text-slate-500 font-normal">Manage your cosmic identity and contact details.</p>
       </div>
 
@@ -54,7 +54,7 @@ const AccountProfile = () => {
         
         {/* Left Side: Photo */}
         <div className="flex flex-col items-center gap-4 flex-shrink-0">
-          <div className="bg-[#FFFCE8] text-[#D4AF37] text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5 self-start md:self-center mb-2">
+          <div className="bg-[#FFFCE8] text-[#D4AF37] text-[10px] font-semibold px-3 py-1 rounded-full flex items-center gap-1.5 self-start md:self-center mb-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></span>
             Live System Access
           </div>
@@ -132,11 +132,11 @@ const AccountProfile = () => {
             <div className="flex items-center gap-3">
               <Laptop size={18} className="text-slate-400" />
               <div>
-                <p className="text-[10px] font-bold text-[#A5B4FC] uppercase tracking-wider">Last login</p>
+                <p className="text-[10px] font-semibold text-[#A5B4FC] uppercase tracking-wider">Last login</p>
                 <p className="text-[11px] font-semibold text-slate-400 mt-0.5">MacBook Pro, London UK</p>
               </div>
             </div>
-            <span className="bg-[#E0E7FF] text-[#818CF8] text-[9px] font-bold px-3 py-1 rounded-md uppercase tracking-wider">Current</span>
+            <span className="bg-[#E0E7FF] text-[#818CF8] text-[9px] font-semibold px-3 py-1 rounded-md uppercase tracking-wider">Current</span>
           </div>
         </div>
       </div>
@@ -172,7 +172,7 @@ const AccountProfile = () => {
               Interface Theme
             </label>
             <div className="flex bg-[#EAECEF] rounded-lg p-1">
-              <button className="flex-1 flex items-center justify-center gap-2 bg-[#E0E7FF] text-[#4F46E5] text-[12px] font-bold py-2 rounded-md shadow-sm">
+              <button className="flex-1 flex items-center justify-center gap-2 bg-[#E0E7FF] text-[#4F46E5] text-[12px] font-semibold py-2 rounded-md shadow-sm">
                 <Moon size={14} /> Dark
               </button>
               <button className="flex-1 flex items-center justify-center gap-2 text-slate-500 text-[12px] font-medium py-2 rounded-md hover:bg-slate-200 transition-colors">

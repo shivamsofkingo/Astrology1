@@ -56,10 +56,10 @@ const AdminLayout = ({ children }) => {
             }}
           />
           <div className="flex flex-col items-center">
-             <p className="text-[11px] text-slate-900 font-bold tracking-[0.3em] uppercase">ASTROLOGY</p>
+             <p className="text-[11px] text-slate-900 font-semibold tracking-[0.3em] uppercase">ASTROLOGY</p>
           </div>
           <div className="hidden flex-col items-center justify-center">
-            <h1 className="text-[#00BAF2] text-2xl font-bold tracking-tight">Softkíngo</h1>
+            <h1 className="text-[#00BAF2] text-2xl font-semibold tracking-tight">Softkíngo</h1>
           </div>
         </div>
 

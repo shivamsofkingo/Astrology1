@@ -39,7 +39,7 @@ const UserRow = ({ id, name, email, avatar, date, kyc, wallet, status }) => {
       </td>
       <td className="py-3 px-6 text-[12px] text-slate-600 font-medium">{date}</td>
       <td className="py-3 px-6">
-        <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-[9px] font-bold tracking-wider ${getKycStyle(kyc)}`}>
+        <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-[9px] font-semibold tracking-wider ${getKycStyle(kyc)}`}>
           <span className={`w-1.5 h-1.5 rounded-full ${getKycDot(kyc)}`}></span>
           {kyc}
         </div>
@@ -76,7 +76,7 @@ const UserManagement = () => {
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <h1 className="text-2xl font-bold text-slate-900 tracking-tight">User Management</h1>
+      <h1 className="text-2xl font-semibold text-slate-900 tracking-tight">User Management</h1>
 
       {/* Filters Bar */}
       <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-100 flex items-center gap-4">
@@ -119,12 +119,12 @@ const UserManagement = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-[#F8FAFC] border-b border-slate-100">
-                <th className="py-4 px-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">User Profile</th>
-                <th className="py-4 px-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Join Date</th>
-                <th className="py-4 px-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">KYC Status</th>
-                <th className="py-4 px-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Wallet Balance</th>
-                <th className="py-4 px-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Status</th>
-                <th className="py-4 px-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Actions</th>
+                <th className="py-4 px-6 text-[10px] font-semibold text-slate-400 uppercase tracking-widest">User Profile</th>
+                <th className="py-4 px-6 text-[10px] font-semibold text-slate-400 uppercase tracking-widest">Join Date</th>
+                <th className="py-4 px-6 text-[10px] font-semibold text-slate-400 uppercase tracking-widest">KYC Status</th>
+                <th className="py-4 px-6 text-[10px] font-semibold text-slate-400 uppercase tracking-widest">Wallet Balance</th>
+                <th className="py-4 px-6 text-[10px] font-semibold text-slate-400 uppercase tracking-widest">Status</th>
+                <th className="py-4 px-6 text-[10px] font-semibold text-slate-400 uppercase tracking-widest">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -143,7 +143,7 @@ const UserManagement = () => {
           <p className="text-[11px] text-slate-400 font-medium w-48">Showing 1 to 10 of 420 cosmic seekers</p>
           <div className="flex items-center gap-1">
             <button className="w-7 h-7 flex items-center justify-center rounded border border-slate-100 text-slate-400 hover:bg-slate-50 text-[12px] font-medium">&lt;</button>
-            <button className="w-7 h-7 flex items-center justify-center rounded bg-[#E0E7FF] text-[#4F46E5] text-[12px] font-bold">1</button>
+            <button className="w-7 h-7 flex items-center justify-center rounded bg-[#E0E7FF] text-[#4F46E5] text-[12px] font-semibold">1</button>
             <button className="w-7 h-7 flex items-center justify-center rounded border border-slate-100 text-slate-500 hover:bg-slate-50 text-[12px] font-medium">2</button>
             <button className="w-7 h-7 flex items-center justify-center rounded border border-slate-100 text-slate-500 hover:bg-slate-50 text-[12px] font-medium">3</button>
             <button className="w-7 h-7 flex items-center justify-center rounded border border-slate-100 text-slate-400 hover:bg-slate-50 text-[12px] font-medium">&gt;</button>

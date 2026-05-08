@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 
 const LiveSessionCard = ({ user, sign, astrologer, type, icon: Icon, duration }) => (
-  <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex-1 min-w-[300px]">
+  <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm flex-1 min-w-[300px]">
     <div className="flex justify-between items-start mb-6">
       <div className="flex items-center gap-3">
         <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center border border-slate-200">
@@ -17,7 +17,7 @@ const LiveSessionCard = ({ user, sign, astrologer, type, icon: Icon, duration })
           <p className="text-[11px] text-slate-400 font-medium">{sign}</p>
         </div>
       </div>
-      <span className="bg-amber-50 text-amber-600 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider border border-amber-100">
+      <span className="bg-amber-50 text-amber-600 text-[9px] font-semibold px-2 py-0.5 rounded uppercase tracking-wider border border-amber-100">
         LIVE NOW
       </span>
     </div>
@@ -35,7 +35,7 @@ const LiveSessionCard = ({ user, sign, astrologer, type, icon: Icon, duration })
       </div>
       <div className="flex justify-between items-center">
         <span className="text-[12px] text-slate-400 font-medium">Duration</span>
-        <span className="text-[14px] font-bold text-amber-500 font-mono">{duration}</span>
+        <span className="text-[14px] font-semibold text-amber-500 font-mono">{duration}</span>
       </div>
     </div>
   </div>
@@ -62,8 +62,8 @@ const ChatManagement = () => {
 
       {/* Live Sessions Grid */}
       <div className="flex justify-between items-end mb-4">
-         <h2 className="ml-3 text-[11px] font-bold text-slate-600 uppercase tracking-widest">Active Sessions</h2>
-         <button className="mr-2 text-[11px] font-bold text-slate-600 hover:text-slate-900 uppercase tracking-widest bg-slate-100 px-3 py-1 rounded">View All</button>
+         <h2 className="ml-3 text-[11px] font-semibold text-slate-600 uppercase tracking-widest">Active Sessions</h2>
+         <button className="mr-2 text-[11px] font-semibold text-slate-600 hover:text-slate-900 uppercase tracking-widest bg-slate-100 px-3 py-1 rounded-lg">View All</button>
       </div>
       <div className="flex gap-6 overflow-x-auto no-scrollbar pb-2">
         <LiveSessionCard 
@@ -85,7 +85,7 @@ const ChatManagement = () => {
       </div>
 
       {/* Consultation History */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden mt-10">
+      <div className="bg-white rounded-lg border border-slate-100 shadow-sm overflow-hidden mt-10">
         <div className="p-6 border-b border-slate-50 flex flex-wrap justify-between items-center gap-4">
            <h3 className="text-lg font-semibold text-slate-800">Consultation History</h3>
            <div className="flex gap-3">
@@ -106,7 +106,7 @@ const ChatManagement = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-400/10 text-slate-500 text-[10px] font-bold uppercase tracking-widest">
+              <tr className="bg-slate-400/10 text-slate-500 text-[10px] font-semibold uppercase tracking-widest">
                 <th className="py-4 px-6">Participants</th>
                 <th className="py-4 px-6 text-center">Type</th>
                 <th className="py-4 px-6 text-center">Start/End</th>
@@ -135,7 +135,7 @@ const ChatManagement = () => {
                   <td className="py-5 px-6 text-center text-slate-500">{row.duration}</td>
                   <td className="py-5 px-6 text-center font-semibold text-amber-500">{row.billing}</td>
                   <td className="py-5 px-6 text-right">
-                    <span className="bg-indigo-50 text-indigo-500 text-[9px] font-bold px-3 py-1 rounded uppercase tracking-wider">
+                    <span className="bg-indigo-50 text-indigo-500 text-[9px] font-semibold px-3 py-1 rounded uppercase tracking-wider">
                       {row.status}
                     </span>
                   </td>
@@ -148,7 +148,7 @@ const ChatManagement = () => {
 
       {/* Financial Safety */}
       <div className="max-w-2xl">
-        <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm space-y-8">
+        <div className="bg-white p-8 rounded-lg border border-slate-100 shadow-sm space-y-8">
            <div className="flex items-center gap-2 mb-2">
               <ShieldCheck className="text-amber-400" size={20} />
               <h3 className="text-lg font-semibold text-slate-800">Financial Safety</h3>
@@ -183,21 +183,21 @@ const ChatManagement = () => {
            </div>
 
            <div className="pt-8 border-t border-slate-50 space-y-4">
-              <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Max Session Duration</h4>
+              <h4 className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">Max Session Duration</h4>
               <div className="relative pt-6 pb-2">
                  <div className="absolute top-1/2 left-0 w-full h-[3px] bg-slate-900 -translate-y-1/2"></div>
                  <div className="flex justify-between relative">
                     <div className="flex flex-col items-center gap-2">
                        <div className="w-1 h-3 bg-slate-900"></div>
-                       <span className="text-[10px] font-bold text-slate-900">30 MIN</span>
+                       <span className="text-[10px] font-semibold text-slate-900">30 MIN</span>
                     </div>
                     <div className="flex flex-col items-center gap-2">
                        <div className="w-1 h-3 bg-slate-900"></div>
-                       <span className="text-[10px] font-bold text-slate-900">60 MIN</span>
+                       <span className="text-[10px] font-semibold text-slate-900">60 MIN</span>
                     </div>
                     <div className="flex flex-col items-center gap-2">
                        <div className="w-1 h-3 bg-slate-900"></div>
-                       <span className="text-[10px] font-bold text-slate-900">UNLIMITED</span>
+                       <span className="text-[10px] font-semibold text-slate-900">UNLIMITED</span>
                     </div>
                  </div>
               </div>

@@ -10,7 +10,7 @@ const NotificationCategory = ({ icon: Icon, label, count, active }) => (
       <span className="text-[13px] font-medium">{label}</span>
     </div>
     {count && (
-      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
         active ? 'bg-[#00BAF2] text-white' : 'bg-slate-100 text-slate-500'
       }`}>
         {count}
@@ -39,7 +39,7 @@ const NotificationItem = ({ type, title, desc, time, tags, hasBorder }) => {
           </div>
           <div className="flex items-center gap-2 mt-4">
             {tags.map((tag, i) => (
-              <span key={i} className={`text-[9px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider ${
+              <span key={i} className={`text-[9px] font-semibold px-2.5 py-1 rounded-md uppercase tracking-wider ${
                 tag === 'CRITICAL' ? 'bg-rose-50 text-rose-500' : 
                 tag === 'INFRASTRUCTURE' ? 'bg-slate-800 text-white' : 
                 tag === 'UPDATE' ? 'bg-indigo-50 text-indigo-500' : 
@@ -59,7 +59,7 @@ const NotificationsCenter = () => {
   return (
     <div className="space-y-8">
       <div className="flex flex-col gap-1">
-        <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Notifications Center</h1>
+        <h1 className="text-3xl font-semibold text-slate-900 tracking-tight">Notifications Center</h1>
         <p className="text-sm text-slate-500 font-normal">Manage and respond to system-wide cosmic shifts.</p>
       </div>
 

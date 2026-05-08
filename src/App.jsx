@@ -9,12 +9,23 @@ import UserDetails from './pages/UserDetails';
 import AstrologerManagement from './pages/AstrologerManagement';
 import AstrologerDetails from './pages/AstrologerDetails';
 import ChatManagement from './pages/ChatManagement';
+import WalletsPayments from './pages/WalletsPayments';
+import BookingsManagement from './pages/BookingsManagement';
+import ReportsAnalytics from './pages/ReportsAnalytics';
+import ReviewsRatings from './pages/ReviewsRatings';
+import CMSDashboard from './pages/CMSDashboard';
+import NotificationManagement from './pages/NotificationManagement';
+import OffersPromotions from './pages/OffersPromotions';
+import SubscriptionManagement from './pages/SubscriptionManagement';
+import SupportManagement from './pages/SupportManagement';
+import SecurityAccess from './pages/SecurityAccess';
+import MarketingGrowth from './pages/MarketingGrowth';
 
 // Generic Component for pages with no data yet
 const GenericModule = ({ title }) => (
   <div className="flex flex-col items-center justify-center min-h-[60vh] text-slate-400">
     <div className="text-6xl mb-4">🔮</div>
-    <h1 className="text-2xl font-bold text-[#003566]">{title}</h1>
+    <h1 className="text-2xl font-semibold text-[#003566]">{title}</h1>
     <p className="mt-2 text-slate-500">This module is currently under development. Please check back later.</p>
   </div>
 );
@@ -31,21 +42,21 @@ function App() {
           <Route path="/astrologers" element={<AstrologerManagement />} />
           <Route path="/astrologers/:id" element={<AstrologerDetails />} />
           <Route path="/chat" element={<ChatManagement />} />
-          <Route path="/wallet" element={<GenericModule title="Wallet & Payments" />} />
-          <Route path="/bookings" element={<GenericModule title="Booking & Appointment Management" />} />
-          <Route path="/reports" element={<GenericModule title="Reports & Analytics" />} />
-          <Route path="/reviews" element={<GenericModule title="Reviews & Ratings" />} />
-          <Route path="/cms" element={<GenericModule title="CMS (Content Management System)" />} />
+          <Route path="/wallet" element={<WalletsPayments />} />
+          <Route path="/bookings" element={<BookingsManagement />} />
+          <Route path="/reports" element={<ReportsAnalytics />} />
+          <Route path="/reviews" element={<ReviewsRatings />} />
+          <Route path="/cms" element={<CMSDashboard />} />
           <Route path="/notifications" element={<NotificationsCenter />} />
-          <Route path="/notification-management" element={<GenericModule title="Notifications Management" />} />
-          <Route path="/offers" element={<GenericModule title="Offers & Promotions" />} />
-          <Route path="/subscriptions" element={<GenericModule title="Subscription & Membership Plans" />} />
+          <Route path="/notification-management" element={<NotificationManagement />} />
+          <Route path="/offers" element={<OffersPromotions />} />
+          <Route path="/subscriptions" element={<SubscriptionManagement />} />
           <Route path="/settings" element={<GenericModule title="Settings & Configuration" />} />
-          <Route path="/support" element={<GenericModule title="Dispute & Support Management" />} />
-          <Route path="/security" element={<GenericModule title="Security & Roles" />} />
+          <Route path="/support" element={<SupportManagement />} />
+          <Route path="/security" element={<SecurityAccess />} />
           <Route path="/localization" element={<GenericModule title="Multi-language & Localization" />} />
           <Route path="/horoscope" element={<GenericModule title="Horoscope & Kundli Management" />} />
-          <Route path="/marketing" element={<GenericModule title="Marketing & Growth Tools" />} />
+          <Route path="/marketing" element={<MarketingGrowth />} />
         </Routes>
       </AdminLayout>
     </Router>

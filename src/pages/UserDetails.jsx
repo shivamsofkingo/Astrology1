@@ -15,7 +15,7 @@ const usersData = {
 };
 
 const StatCard = ({ icon: Icon, label, value, color = "text-[#00BAF2]", bgColor = "bg-[#F0F9FF]" }) => (
-  <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex flex-col gap-2">
+  <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm flex flex-col gap-2">
     <div className="flex items-center gap-2">
       <div className={`${bgColor} ${color} p-1.5 rounded-lg`}>
         <Icon size={16} />
@@ -41,7 +41,7 @@ const TabButton = ({ label, active, onClick }) => (
 );
 
 const InfoBox = ({ icon: Icon, title, children }) => (
-  <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm h-full">
+  <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm h-full">
     <div className="flex items-center gap-2 mb-6">
       <div className="bg-indigo-50 text-indigo-500 p-1.5 rounded-lg">
         <Icon size={16} />
@@ -82,7 +82,7 @@ const UserDetails = () => {
         <InfoBox icon={Star} title="Cosmic Profile">
           <div className="flex justify-between items-center text-[13px]">
             <span className="text-slate-400 font-semibold">Sun Sign</span>
-            <span className="text-amber-500 font-bold flex items-center gap-1.5">
+            <span className="text-amber-500 font-semibold flex items-center gap-1.5">
                <span className="text-[14px]">♒</span> Aquarius
             </span>
           </div>
@@ -97,7 +97,7 @@ const UserDetails = () => {
         </InfoBox>
       </div>
 
-      <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
+      <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm">
         <div className="flex items-center gap-2 mb-6">
           <div className="bg-indigo-50 text-indigo-500 p-1.5 rounded-lg">
             <Globe size={16} />
@@ -105,21 +105,21 @@ const UserDetails = () => {
           <h3 className="text-[13px] font-semibold text-slate-800 uppercase tracking-wide">Astral Links</h3>
         </div>
         <div className="flex flex-wrap gap-4">
-          <div className="bg-indigo-400 text-white px-4 py-3 rounded-xl flex items-center gap-3 min-w-[180px]">
+          <div className="bg-indigo-400 text-white px-4 py-3 rounded-lg flex items-center gap-3 min-w-[180px]">
              <div className="bg-white/20 p-2 rounded-lg"><Globe size={18} /></div>
              <div>
                 <p className="text-[10px] font-semibold opacity-80 uppercase tracking-wider">Instagram</p>
                 <p className="text-[13px] font-semibold">@alex_stargazer</p>
              </div>
           </div>
-          <div className="bg-amber-300 text-slate-900 px-4 py-3 rounded-xl flex items-center gap-3 min-w-[180px]">
+          <div className="bg-amber-300 text-slate-900 px-4 py-3 rounded-lg flex items-center gap-3 min-w-[180px]">
              <div className="bg-white/30 p-2 rounded-lg"><CreditCard size={18} /></div>
              <div>
                 <p className="text-[10px] font-semibold opacity-80 uppercase tracking-wider">Astro-Bank</p>
                 <p className="text-[13px] font-semibold">ID: 9920334</p>
              </div>
           </div>
-          <div className="bg-purple-300 text-slate-900 px-4 py-3 rounded-xl flex items-center gap-3 min-w-[180px]">
+          <div className="bg-purple-300 text-slate-900 px-4 py-3 rounded-lg flex items-center gap-3 min-w-[180px]">
              <div className="bg-white/30 p-2 rounded-lg"><ExternalLink size={18} /></div>
              <div>
                 <p className="text-[10px] font-semibold opacity-80 uppercase tracking-wider">Portfolio</p>
@@ -129,7 +129,7 @@ const UserDetails = () => {
         </div>
       </div>
 
-      <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
+      <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-2">
             <div className="bg-indigo-50 text-indigo-500 p-1.5 rounded-lg">
@@ -164,12 +164,12 @@ const UserDetails = () => {
   const renderConsultationHistory = () => (
     <div className="space-y-8">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white p-6 rounded-xl border-l-4 border-indigo-400 shadow-sm">
+        <div className="bg-white p-6 rounded-lg border-l-4 border-indigo-400 shadow-sm">
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1">Total Sessions</p>
           <p className="text-2xl font-semibold text-indigo-600">42</p>
           <p className="text-[10px] text-indigo-400 font-medium mt-1">+3 this month</p>
         </div>
-        <div className="bg-white p-6 rounded-xl border-l-4 border-purple-400 shadow-sm">
+        <div className="bg-white p-6 rounded-lg border-l-4 border-purple-400 shadow-sm">
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1">Total Duration</p>
           <div className="flex items-baseline gap-2">
             <p className="text-2xl font-semibold text-purple-600">1,260</p>
@@ -177,12 +177,12 @@ const UserDetails = () => {
           </div>
           <p className="text-[10px] text-purple-400 font-medium mt-1">Avg 30m / session</p>
         </div>
-        <div className="bg-white p-6 rounded-xl border-l-4 border-amber-400 shadow-sm">
+        <div className="bg-white p-6 rounded-lg border-l-4 border-amber-400 shadow-sm">
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1">Total Spend</p>
           <p className="text-2xl font-semibold text-amber-500">$8,420.00</p>
           <p className="text-[10px] text-amber-400 font-medium mt-1">LTV Tier: Diamond</p>
         </div>
-        <div className="bg-white p-6 rounded-xl border-l-4 border-blue-400 shadow-sm">
+        <div className="bg-white p-6 rounded-lg border-l-4 border-blue-400 shadow-sm">
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1">Avg. Rating</p>
           <div className="flex items-center gap-2">
             <p className="text-2xl font-semibold text-blue-500">4.9</p>
@@ -194,7 +194,7 @@ const UserDetails = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+      <div className="bg-white rounded-lg shadow-sm border border-slate-100 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
@@ -258,7 +258,7 @@ const UserDetails = () => {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <div className="lg:col-span-2 space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-           <div className="bg-white p-5 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden group">
+           <div className="bg-white p-5 rounded-lg border border-slate-100 shadow-sm relative overflow-hidden group">
               <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-[#00BAF2]/5 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
               <p className="text-[9px] font-semibold uppercase text-gray-600  tracking-widest mb-1">Current Balance</p>
               <div className="flex items-baseline gap-1">
@@ -267,26 +267,26 @@ const UserDetails = () => {
               </div>
               <p className="text-[10px] text-indigo-500 font-medium mt-1">↑ +20% this month</p>
            </div>
-           <div className="bg-white p-5 rounded-xl border border-slate-100 shadow-sm">
+           <div className="bg-white p-5 rounded-lg border border-slate-100 shadow-sm">
               <p className="text-[9px] font-semibold uppercase text-gray-600  tracking-widest mb-1">Total Lifetime Spent</p>
               <p className="text-2xl font-semibold text-slate-300">$12,840.00</p>
               <p className="text-[10px] text-slate-400 font-medium mt-1 uppercase tracking-tighter">Active since year zero</p>
            </div>
-           <div className="bg-white p-5 rounded-xl border border-slate-100 shadow-sm">
+           <div className="bg-white p-5 rounded-lg border border-slate-100 shadow-sm">
               <p className="text-[9px] font-semibold uppercase text-gray-600  tracking-widest mb-1">Active Subscription</p>
               <p className="text-xl font-semibold text-indigo-400">Cosmos Pro</p>
               <p className="text-[10px] text-amber-400 font-medium mt-1 flex items-center gap-1">
                 <div className="w-1.5 h-1.5 bg-amber-400 rounded-full"></div> Live Connection
               </p>
            </div>
-           <div className="bg-white p-5 rounded-xl border border-slate-100 shadow-sm">
+           <div className="bg-white p-5 rounded-lg border border-slate-100 shadow-sm">
               <p className="text-[9px] font-semibold text-gray-600 uppercase tracking-widest mb-1">Next Billing Date</p>
               <p className="text-xl font-semibold text-slate-300">Nov 14, 2024</p>
               <p className="text-[10px] text-slate-400 font-medium mt-1 uppercase tracking-tighter">Recurring $299.00 / mo</p>
            </div>
         </div>
 
-        <div className="bg-white p-8 rounded-xl border border-slate-100 shadow-sm">
+        <div className="bg-white p-8 rounded-lg border border-slate-100 shadow-sm">
           <div className="flex justify-between items-center mb-8">
              <h3 className="text-2xl font-semibold text-indigo-100">Transaction History</h3>
              <button className="bg-slate-900 text-white p-1.5 rounded-lg"><ArrowLeft size={14} className="rotate-90" /></button>
@@ -339,13 +339,13 @@ const UserDetails = () => {
       </div>
 
       <div className="space-y-8">
-        <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
+        <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm">
            <div className="flex justify-between items-center mb-6">
               <h3 className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">Payment Methods</h3>
               <Plus size={16} className="text-indigo-400 cursor-pointer" />
            </div>
            <div className="space-y-3">
-              <div className="border border-indigo-100 rounded-xl p-4 flex items-center justify-between">
+              <div className="border border-indigo-100 rounded-lg p-4 flex items-center justify-between">
                  <div className="flex items-center gap-3">
                     <div className="bg-slate-800 text-white p-2 rounded-lg"><CreditCard size={18} /></div>
                     <div>
@@ -355,7 +355,7 @@ const UserDetails = () => {
                  </div>
                  <span className="text-[9px] font-semibold text-white bg-indigo-500 px-2 py-0.5 rounded uppercase tracking-wider">Default</span>
               </div>
-              <div className="border border-slate-100 rounded-xl p-4 flex items-center gap-3">
+              <div className="border border-slate-100 rounded-lg p-4 flex items-center gap-3">
                  <div className="bg-slate-800 text-white p-2 rounded-lg"><Globe size={18} /></div>
                  <div>
                     <p className="text-[13px] font-semibold text-slate-800">Chase Bank •••• 9810</p>
@@ -365,7 +365,7 @@ const UserDetails = () => {
            </div>
         </div>
 
-        <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
+        <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm">
            <h3 className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-4">Billing Address</h3>
            <div className="text-[13px] text-slate-800 font-medium space-y-1">
               <p className="text-indigo-400 font-semibold">{user.name}</p>
@@ -375,17 +375,17 @@ const UserDetails = () => {
            </div>
         </div>
 
-        <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
+        <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm">
            <div className="flex items-center justify-between mb-4">
               <h3 className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">Auto-Recharge</h3>
               <div className="w-10 h-5 bg-indigo-500 rounded-full relative cursor-pointer">
                  <div className="absolute right-1 top-1 w-3 h-3 bg-white rounded-full"></div>
               </div>
            </div>
-           <p className="text-[11px] text-slate-400 leading-relaxed mb-4">Automatically add credits when balance falls below <span className="text-indigo-400 font-bold">50 Credits</span>.</p>
-           <div className="bg-slate-50 p-4 rounded-xl flex items-center justify-between">
+           <p className="text-[11px] text-slate-400 leading-relaxed mb-4">Automatically add credits when balance falls below <span className="text-indigo-400 font-semibold">50 Credits</span>.</p>
+           <div className="bg-slate-50 p-4 rounded-lg flex items-center justify-between">
               <span className="text-[11px] text-slate-500 font-medium">Amount to add:</span>
-              <span className="text-[11px] font-bold text-amber-500 uppercase tracking-wider">200 Credits ($199)</span>
+              <span className="text-[11px] font-semibold text-amber-500 uppercase tracking-wider">200 Credits ($199)</span>
            </div>
         </div>
       </div>
@@ -429,7 +429,7 @@ const UserDetails = () => {
           </button>
           <button 
             onClick={() => navigate(-1)}
-            className="bg-[#00BAF2] text-white px-6 py-2 rounded-lg text-[11px] font-bold uppercase tracking-widest hover:bg-[#00A0D2] transition-all shadow-lg shadow-[#00BAF2]/30"
+            className="bg-[#00BAF2] text-white px-6 py-2 rounded-lg text-[11px] font-semibold uppercase tracking-widest hover:bg-[#00A0D2] transition-all shadow-lg shadow-[#00BAF2]/30"
           >
             Back
           </button>

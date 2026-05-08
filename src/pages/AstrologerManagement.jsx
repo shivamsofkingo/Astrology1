@@ -6,13 +6,13 @@ import {
 } from 'lucide-react';
 
 const StatCard = ({ icon: Icon, label, value, colorClass, bgClass }) => (
-  <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4 flex-1">
-    <div className={`${bgClass} ${colorClass} p-3 rounded-xl`}>
+  <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm flex items-center gap-4 flex-1">
+    <div className={`${bgClass} ${colorClass} p-3 rounded-lg`}>
       <Icon size={24} />
     </div>
     <div>
       <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1">{label}</p>
-      <p className="text-2xl font-bold text-slate-900">{value}</p>
+      <p className="text-2xl font-semibold text-slate-900">{value}</p>
     </div>
   </div>
 );
@@ -51,7 +51,7 @@ const AstrologerRow = ({ id, name, avatar, joinDate, kycStatus, rate, specialty 
       </td>
       <td className="py-4 px-6">
         <div className="flex justify-center">
-          <span className="bg-indigo-50 text-indigo-600 text-[9px] font-semibold px-3 py-1.5 rounded-md uppercase tracking-widest">
+          <span className="bg-indigo-50 text-indigo-600 text-[9px] font-semibold px-3 py-1.5 rounded-lg uppercase tracking-widest">
             {specialty}
           </span>
         </div>
@@ -115,10 +115,10 @@ const AstrologerManagement = () => {
       </div>
 
       {/* Filters and Actions */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-wrap justify-between items-center gap-4">
+      <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm flex flex-wrap justify-between items-center gap-4">
         <div className="flex gap-4">
           <div className="relative">
-            <select className="appearance-none bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 pr-10 text-[13px] font-semibold text-slate-700 min-w-[160px] cursor-pointer hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500/20">
+            <select className="appearance-none bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 pr-10 text-[13px] font-semibold text-slate-700 min-w-[160px] cursor-pointer hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500/20">
               <option>Specialty</option>
               <option>Vedic</option>
               <option>Tarot</option>
@@ -127,7 +127,7 @@ const AstrologerManagement = () => {
             <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={16} />
           </div>
           <div className="relative">
-            <select className="appearance-none bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 pr-10 text-[13px] font-semibold text-slate-700 min-w-[160px] cursor-pointer hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500/20">
+            <select className="appearance-none bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 pr-10 text-[13px] font-semibold text-slate-700 min-w-[160px] cursor-pointer hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500/20">
               <option>Status</option>
               <option>Verified</option>
               <option>Pending</option>
@@ -137,13 +137,13 @@ const AstrologerManagement = () => {
           </div>
         </div>
 
-        <button className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-xl text-[13px] font-semibold flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/20">
+        <button className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-[13px] font-semibold flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/20">
           <Plus size={18} /> Add New Astrologer
         </button>
       </div>
 
       {/* Table Section */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-lg border border-slate-100 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>

@@ -185,7 +185,7 @@ const AdminDashboard = () => {
                     tick={{ fontSize: 10, fill: '#94A3B8', fontWeight: 500 }}
                     dy={10}
                   />
-                  <Bar dataKey="value" radius={[4, 4, 4, 4]} barSize={40}>
+                  <Bar dataKey="value" radius={[8, 8, 8, 8]} barSize={40}>
                     {engagementData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={index % 2 === 0 ? '#818CF8' : '#334155'} />
                     ))}

@@ -5,13 +5,13 @@ import {
 } from 'lucide-react';
 
 const StatCard = ({ label, value, subValue, icon: Icon, colorClass, bgClass, trend }) => (
-  <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between h-full">
+  <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm flex flex-col justify-between h-full">
     <div className="flex justify-between items-start">
       <div>
         <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1">{label}</p>
         <p className={`text-2xl font-semibold ${colorClass}`}>{value}</p>
       </div>
-      <div className={`${bgClass} ${colorClass} p-2 rounded-xl`}>
+      <div className={`${bgClass} ${colorClass} p-2 rounded-lg`}>
         {Icon && <Icon size={20} />}
       </div>
     </div>
@@ -107,7 +107,7 @@ const AstrologerDetails = () => {
         {/* Main Content Area */}
         <div className="lg:col-span-2 space-y-8">
           {/* Earnings Trajectory */}
-          <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm h-[400px] flex flex-col">
+          <div className="bg-white p-8 rounded-lg border border-slate-100 shadow-sm h-[400px] flex flex-col">
             <div className="flex justify-between items-center mb-8">
               <h3 className="text-xl font-semibold text-slate-800">Earnings Trajectory</h3>
               <div className="flex gap-2">
@@ -126,7 +126,7 @@ const AstrologerDetails = () => {
           </div>
 
           {/* Lineage & Expertise */}
-          <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm">
+          <div className="bg-white p-8 rounded-lg border border-slate-100 shadow-sm">
             <h3 className="text-xl font-semibold text-indigo-400 mb-6">Lineage & Expertise</h3>
             <div className="space-y-6 text-[15px] leading-relaxed text-slate-600">
               <p>Oracle Selene is a 3rd generation Vedic practitioner with over 15 years of cosmic counseling. Specialized in transit analysis and karmic patterns, she utilizes a synthesis of Hellenistic techniques and Modern Evolutionary Astrology.</p>
@@ -144,13 +144,13 @@ const AstrologerDetails = () => {
 
         {/* Sidebar Controls */}
         <div className="space-y-8">
-          <div className="bg-white p-8 pb-16 rounded-2xl border border-slate-100 shadow-sm min-h-[620px]">
+          <div className="bg-white p-8 pb-16 rounded-lg border border-slate-100 shadow-sm min-h-[620px]">
             <div className="flex items-center gap-2 mb-8">
               <Award className="text-indigo-400" size={18} />
               <h3 className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">Administrative Controls</h3>
             </div>
             
-            <button className="w-full border border-slate-200 py-3 rounded-xl text-indigo-500 text-[12px] font-semibold flex items-center justify-center gap-2 hover:bg-slate-50 transition-all mb-8">
+            <button className="w-full border border-slate-200 py-3 rounded-lg text-indigo-500 text-[12px] font-semibold flex items-center justify-center gap-2 hover:bg-slate-50 transition-all mb-8">
               <Edit2 size={14} /> Edit Practitioner Profile
             </button>
 
@@ -197,7 +197,7 @@ const AstrologerDetails = () => {
                  </div>
               </div>
 
-              <button className="w-full bg-rose-900/10 text-rose-600 py-3 rounded-xl text-[12px] font-semibold flex items-center justify-center gap-2 hover:bg-rose-900/20 transition-all mt-12 border border-rose-600/20">
+              <button className="w-full bg-rose-900/10 text-rose-600 py-3 rounded-lg text-[12px] font-semibold flex items-center justify-center gap-2 hover:bg-rose-900/20 transition-all mt-12 border border-rose-600/20">
                 <Ban size={14} /> Block Practitioner
               </button>
               <p className="text-[10px] text-slate-400 text-center leading-relaxed">Blocking will suspend all pending payouts and cancel future bookings.</p>
@@ -207,13 +207,13 @@ const AstrologerDetails = () => {
       </div>
 
       {/* Verification Vault (Full Width) */}
-      <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm">
+      <div className="bg-white p-8 rounded-lg border border-slate-100 shadow-sm">
         <div className="flex justify-between items-center mb-8">
           <h3 className="text-xl font-semibold text-slate-800">Verification Vault</h3>
           <ShieldCheck className="text-amber-400" size={24} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="relative group overflow-hidden rounded-xl border border-slate-200">
+          <div className="relative group overflow-hidden rounded-lg border border-slate-200">
             <img src="https://images.unsplash.com/photo-1633113088983-12fb3b2fe0ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Doc 1" className="w-full h-64 object-cover opacity-80 group-hover:opacity-100 transition-all" />
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
                <button className="bg-white text-slate-900 px-6 py-3 rounded-lg text-[13px] font-semibold uppercase tracking-widest flex items-center gap-2">
@@ -221,7 +221,7 @@ const AstrologerDetails = () => {
                </button>
             </div>
           </div>
-          <div className="relative group overflow-hidden rounded-xl border border-slate-200">
+          <div className="relative group overflow-hidden rounded-lg border border-slate-200">
             <img src="https://images.unsplash.com/photo-1589330694653-ded6df03f754?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Doc 2" className="w-full h-64 object-cover opacity-80 group-hover:opacity-100 transition-all" />
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
                <button className="bg-white text-slate-900 px-6 py-3 rounded-lg text-[13px] font-semibold uppercase tracking-widest flex items-center gap-2">
@@ -243,7 +243,7 @@ const AstrologerDetails = () => {
       </div>
 
       {/* Recent User Impressions (Full Width Footer) */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+      <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm">
         <div className="flex justify-between items-center mb-6">
            <h3 className="text-2xl font-semibold text-slate-800">Recent User Impressions</h3>
            <span className="text-[13px] font-medium text-slate-400 italic">Showing 3 of 842 reviews</span>
@@ -254,7 +254,7 @@ const AstrologerDetails = () => {
              { name: "Marcus Thorne", date: "5 days ago", type: "Chat Session", text: "Very professional and precise. She doesn't waste time and gets straight to the core of the cosmic alignments affecting your career path." },
              { name: "Kai S.", date: "1 week ago", type: "Voice Session", text: "Great session, just wish it could have been longer. Looking forward to our follow-up in Mercury Direct." }
            ].map((rev, i) => (
-             <div key={i} className="bg-slate-50/50 p-4 rounded-2xl border border-slate-100 space-y-2">
+             <div key={i} className="bg-slate-50/50 p-4 rounded-lg border border-slate-100 space-y-2">
                <div className="flex justify-between items-start">
                   <div className="flex items-center gap-3">
                      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-[13px] ${i === 0 ? 'bg-indigo-500' : i === 1 ? 'bg-slate-800' : 'bg-purple-400'}`}>
