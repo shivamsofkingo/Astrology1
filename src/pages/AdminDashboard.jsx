@@ -194,11 +194,11 @@ const AdminDashboard = () => {
               </ResponsiveContainer>
             </div>
             <div className="space-y-4">
-              <div className="bg-[#EEF2FF] p-5 rounded-lg border-l-8 border-[#818CF8]">
+              <div className="bg-[#EEF2FF] p-5 rounded-lg border-l-6 border-[#818CF8]">
                 <p className="text-[10px] font-semibold text-[#818CF8] uppercase tracking-widest">Active Seekers</p>
                 <p className="text-2xl font-semibold text-slate-900 leading-none mt-2">82%</p>
               </div>
-              <div className="bg-[#F1F5F9] p-5 rounded-lg border-l-8 border-slate-400">
+              <div className="bg-[#F1F5F9] p-5 rounded-lg border-l-6 border-slate-400">
                 <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">Dormant Souls</p>
                 <p className="text-2xl font-semibold text-slate-900 leading-none mt-2">18%</p>
               </div>

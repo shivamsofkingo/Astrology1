@@ -124,20 +124,20 @@ const MarketingGrowth = () => {
           </select>
         </div>
 
-        <div className="flex flex-col h-72">
+        <div className="flex flex-col h-[400px]">
           <div className="flex-grow flex items-end justify-between gap-2 px-4">
             {[
-              { label: 'Moon Phase Sale', height: 'h-24', color: 'bg-indigo-100' },
-              { height: 'h-32', color: 'bg-indigo-200' },
-              { label: 'Equinox Bonus', height: 'h-20', color: 'bg-indigo-100' },
-              { height: 'h-40', color: 'bg-indigo-200' },
-              { height: 'h-36', color: 'bg-indigo-100' },
-              { label: 'Lunar New Year Bonus', height: 'h-48', color: 'bg-amber-400', highlight: true },
-              { height: 'h-44', color: 'bg-indigo-200' },
-              { label: 'Jupiter Rising', height: 'h-32', color: 'bg-indigo-100' },
+              { label: 'Moon Phase Sale', height: 'h-42', color: 'bg-indigo-100' },
+              { height: 'h-57', color: 'bg-indigo-200' },
+              { label: 'Equinox Bonus', height: 'h-32', color: 'bg-indigo-100' },
+              { height: 'h-63', color: 'bg-indigo-200' },
+              { height: 'h-52', color: 'bg-indigo-100' },
+              { label: 'Lunar New Year Bonus', height: 'h-72', color: 'bg-amber-300', highlight: true },
+              { height: 'h-38', color: 'bg-indigo-200' },
+              { label: 'Jupiter Rising', height: 'h-63', color: 'bg-indigo-100' },
             ].map((bar, i) => (
               <div key={i} className="flex-1 flex flex-col items-center group">
-                <div className={`w-full max-w-[85px] ${bar.height} ${bar.color} rounded-lg transition-all group-hover:scale-105 ${bar.highlight ? 'shadow-lg shadow-amber-100' : ''}`}></div>
+                <div className={`w-full max-w-[130px] ${bar.height} ${bar.color} rounded-lg transition-all group-hover:scale-105 ${bar.highlight ? 'shadow-lg shadow-amber-100' : ''}`}></div>
                 <div className="h-16 flex items-center justify-center w-full">
                   {bar.label && (
                     <span className={`text-[9px] font-semibold text-center uppercase tracking-widest ${bar.highlight ? 'text-slate-900' : 'text-slate-400'} leading-tight px-1`}>

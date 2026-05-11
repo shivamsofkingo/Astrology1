@@ -20,6 +20,9 @@ import SubscriptionManagement from './pages/SubscriptionManagement';
 import SupportManagement from './pages/SupportManagement';
 import SecurityAccess from './pages/SecurityAccess';
 import MarketingGrowth from './pages/MarketingGrowth';
+import SettingsConfiguration from './pages/SettingsConfiguration';
+import HoroscopeKundli from './pages/HoroscopeKundli';
+import Localization from './pages/Localization';
 
 // Generic Component for pages with no data yet
 const GenericModule = ({ title }) => (
@@ -51,11 +54,11 @@ function App() {
           <Route path="/notification-management" element={<NotificationManagement />} />
           <Route path="/offers" element={<OffersPromotions />} />
           <Route path="/subscriptions" element={<SubscriptionManagement />} />
-          <Route path="/settings" element={<GenericModule title="Settings & Configuration" />} />
+          <Route path="/settings" element={<SettingsConfiguration />} />
           <Route path="/support" element={<SupportManagement />} />
           <Route path="/security" element={<SecurityAccess />} />
-          <Route path="/localization" element={<GenericModule title="Multi-language & Localization" />} />
-          <Route path="/horoscope" element={<GenericModule title="Horoscope & Kundli Management" />} />
+          <Route path="/localization" element={<Localization />} />
+          <Route path="/horoscope" element={<HoroscopeKundli />} />
           <Route path="/marketing" element={<MarketingGrowth />} />
         </Routes>
       </AdminLayout>

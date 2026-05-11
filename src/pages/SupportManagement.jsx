@@ -2,33 +2,30 @@ import React from 'react';
 import { 
   AlertTriangle, ClipboardList, Clock, Banknote, 
   ChevronRight, Search, Filter, MoreVertical,
-  User, ShieldAlert, Cpu, CheckCircle2
+  User, ShieldAlert, Cpu, CheckCircle2,
+  TrendingUp, RefreshCw, TrendingDown, Frown
 } from 'lucide-react';
 
-const StatCard = ({ label, value, trend, subtext, icon: Icon, iconBg, iconColor, trendColor }) => (
-  <div className="bg-white p-5 rounded-lg border border-slate-100 shadow-sm">
-    <div className="flex justify-between items-start mb-3">
-      <div className={`p-2 rounded-lg ${iconBg} ${iconColor}`}>
-        <Icon size={20} />
+const StatCard = ({ label, value, trendText, trendColor, trendIcon: TrendIcon, mainIcon: MainIcon }) => (
+  <div className="bg-white p-5 rounded-lg border border-slate-100 shadow-sm flex justify-between items-start">
+    <div>
+      <p className="text-[11px] font-bold text-slate-400 mb-1">{label}</p>
+      <h3 className="text-3xl font-bold text-slate-900 mb-3">{value}</h3>
+      <div className={`flex items-center gap-1.5 text-[10px] font-bold ${trendColor}`}>
+        {TrendIcon && <TrendIcon size={12} />}
+        <span>{trendText}</span>
       </div>
-      {trend && (
-        <span className={`text-[10px] font-bold px-2 py-1 rounded-full ${trendColor}`}>
-          {trend}
-        </span>
-      )}
     </div>
-    <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-1">{label}</p>
-    <div className="flex items-baseline gap-2">
-      <h3 className="text-3xl font-semibold text-slate-900">{value}</h3>
-      {subtext && <span className="text-[10px] font-semibold text-slate-400">{subtext}</span>}
+    <div className="text-slate-300">
+      <MainIcon size={24} />
     </div>
   </div>
 );
 
 const DisputeRow = ({ id, reporter, reason, reasonIcon: ReasonIcon, priority, status, statusColor }) => (
   <tr className="border-b border-slate-50 last:border-0 hover:bg-slate-50/50 transition-colors group">
-    <td className="py-4 px-6 text-[13px] font-semibold text-slate-500">{id}</td>
-    <td className="py-4 px-6">
+    <td className="py-3.5 px-6 text-[13px] font-semibold text-slate-500">{id}</td>
+    <td className="py-3.5 px-6">
       <div className="flex items-center gap-3">
         <div className="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-white text-[10px] font-bold">
           {reporter.name.split(' ').map(n => n[0]).join('')}
@@ -39,28 +36,28 @@ const DisputeRow = ({ id, reporter, reason, reasonIcon: ReasonIcon, priority, st
         </div>
       </div>
     </td>
-    <td className="py-4 px-6">
+    <td className="py-3.5 px-6">
       <div className="flex items-center gap-2">
         <span className="text-[13px] font-semibold text-slate-700">{reason}</span>
         {ReasonIcon && <ReasonIcon size={14} className="text-amber-500" />}
       </div>
     </td>
-    <td className="py-4 px-6">
-      <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-        priority === 'URGENT' ? 'bg-rose-50 text-rose-500' :
-        priority === 'NORMAL' ? 'bg-amber-50 text-amber-500' :
-        'bg-slate-100 text-slate-400'
+    <td className="py-3.5 px-6">
+      <span className={`px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest ${
+        priority === 'URGENT' ? 'bg-rose-50 text-rose-300' :
+        priority === 'NORMAL' ? 'bg-amber-50 text-amber-300' :
+        'bg-slate-100 text-slate-300'
       }`}>
         {priority}
       </span>
     </td>
-    <td className="py-4 px-6">
+    <td className="py-3.5 px-6">
       <div className="flex items-center gap-2">
         <div className={`w-1.5 h-1.5 rounded-full ${statusColor}`}></div>
         <span className="text-[13px] font-semibold text-slate-700">{status}</span>
       </div>
     </td>
-    <td className="py-4 px-6 text-right">
+    <td className="py-3.5 px-6 text-right">
       <button className="text-slate-300 group-hover:text-[#00BAF2] transition-colors">
         <ChevronRight size={18} />
       </button>
@@ -82,67 +79,64 @@ const SupportManagement = () => {
         <StatCard 
           label="Open Disputes" 
           value="12" 
-          trend="+4 since yesterday" 
-          icon={AlertTriangle} 
-          iconBg="bg-rose-50" 
-          iconColor="text-rose-500" 
-          trendColor="text-rose-500 bg-rose-50"
+          trendText="+4 since yesterday" 
+          trendColor="text-rose-500"
+          trendIcon={TrendingUp}
+          mainIcon={AlertTriangle} 
         />
         <StatCard 
           label="Pending Reports" 
           value="48" 
-          subtext="In-queue processing"
-          icon={ClipboardList} 
-          iconBg="bg-indigo-50" 
-          iconColor="text-indigo-500" 
+          trendText="In-queue processing"
+          trendColor="text-slate-400"
+          trendIcon={RefreshCw}
+          mainIcon={ClipboardList} 
         />
         <StatCard 
           label="Avg. Resolution Time" 
           value="4.2h" 
-          trend="-12% this week" 
-          icon={Clock} 
-          iconBg="bg-amber-50" 
-          iconColor="text-amber-500" 
-          trendColor="text-emerald-500 bg-emerald-50"
+          trendText="-12% this week" 
+          trendColor="text-slate-300"
+          trendIcon={TrendingDown}
+          mainIcon={Clock} 
         />
         <StatCard 
           label="Refunds Processed" 
           value="$1,240" 
-          subtext="Current month total"
-          icon={Banknote} 
-          iconBg="bg-emerald-50" 
-          iconColor="text-emerald-500" 
+          trendText="Current month total"
+          trendColor="text-slate-400"
+          mainIcon={Banknote} 
         />
       </div>
 
       {/* Unified Dispute Queue */}
       <div className="bg-white rounded-lg border border-slate-100 shadow-sm overflow-hidden">
-        <div className="p-6 border-b border-slate-50 flex justify-between items-center">
-          <h2 className="text-[18px] font-bold text-slate-900">Unified Dispute Queue</h2>
-          <span className="text-[11px] font-semibold text-slate-400">Showing 1-8 of 12 issues</span>
+        <div className="py-5 px-6 border-b border-slate-50 flex justify-between items-center">
+          <h2 className="text-[13px] font-bold text-slate-900">Unified Dispute Queue</h2>
+          <span className="text-[9px] font-semibold text-slate-400">Showing 1-6 of 12 issues</span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-gray-100 text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-50">
-                <th className="py-4 px-6">Dispute ID</th>
-                <th className="py-4 px-6">Reporter</th>
-                <th className="py-4 px-6">Reason</th>
-                <th className="py-4 px-6">Priority</th>
-                <th className="py-4 px-6">Status</th>
-                <th className="py-4 px-6"></th>
+              <tr className="bg-white text-[10px] font-bold text-slate-400 border-b border-slate-50">
+                <th className="py-3.5 px-6 font-semibold">Dispute ID</th>
+                <th className="py-3.5 px-6 font-semibold">Reporter</th>
+                <th className="py-3.5 px-6 font-semibold">Reason</th>
+                <th className="py-3.5 px-6 font-semibold">Priority</th>
+                <th className="py-3.5 px-6 font-semibold">Status</th>
+                <th className="py-3.5 px-6"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
               <DisputeRow 
                 id="#DSP-4092"
-                reporter={{ name: 'Luna Sky', role: '' }}
+                reporter={{ name: 'Luna Sky', role: 'User' }}
                 reason="Accuracy"
-                reasonIcon={ShieldAlert}
+                reasonIcon={Frown}
                 priority="URGENT"
                 status="Open"
-                statusColor="bg-blue-500"
+                statusColor="bg-indigo-500"
               />
               <DisputeRow 
                 id="#DSP-4088"

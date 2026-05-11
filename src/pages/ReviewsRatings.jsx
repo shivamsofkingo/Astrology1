@@ -272,7 +272,7 @@ const ReviewsRatings = () => {
             />
           </div>
 
-          <button className="w-full py-4 bg-rose-50 text-rose-500 text-[11px] font-semibold uppercase tracking-widest rounded-lg hover:bg-rose-100 transition-all border border-rose-100">
+          <button className="w-full py-3 px-2 bg-rose-50 text-rose-500 text-[11px] font-semibold uppercase tracking-widest rounded-lg hover:bg-rose-100 transition-all border border-rose-100">
             Address All Negative Feedback
           </button>
         </div>

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   ShieldCheck, Lock, Star, Eye, ShieldAlert, 
   BarChart3, Plus, Download, ChevronRight,
   Shield, Globe, Clock, MoreVertical, Search,
-  Terminal, User
+  Terminal, User, UserPlus, Mail, Fingerprint,
+  RotateCcw, CheckCircle2, Zap, Briefcase,
+  AlertCircle
 } from 'lucide-react';
 
 const RoleRow = ({ icon: Icon, name, count, lastModified, iconColor }) => (
@@ -57,6 +59,232 @@ const ActivityRow = ({ admin, action, ip, time, status, statusBg, statusText }) 
 );
 
 const SecurityAccess = () => {
+  const [view, setView] = useState('list'); // 'list' or 'add'
+  const [selectedRole, setSelectedRole] = useState('Super Admin');
+
+  if (view === 'add') {
+    return (
+      <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
+        {/* Header */}
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Add New Administrator</h1>
+          <p className="text-[14px] text-slate-500 mt-1 font-semibold leading-relaxed">
+            Provision a new entity into the high-council with specific celestial permissions.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Main Form Area */}
+          <div className="lg:col-span-8 space-y-8">
+            
+            {/* Admin Identity Card */}
+            <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm space-y-6">
+              <div className="flex items-center gap-2.5 text-amber-500">
+                <UserPlus size={20} />
+                <h2 className="text-[16px] font-bold text-slate-900">Admin Identity</h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Full Name</label>
+                  <input 
+                    type="text" 
+                    placeholder="e.g. Orion Vance"
+                    className="w-full px-4 py-3 bg-gray-100 border border-slate-50 rounded-lg text-[13px] font-semibold text-slate-700 outline-none focus:border-[#00BAF2] transition-all"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Employee ID</label>
+                  <input 
+                    type="text" 
+                    placeholder="CS-9942"
+                    className="w-full px-4 py-3 bg-gray-100 border border-slate-50 rounded-lg text-[13px] font-semibold text-slate-700 outline-none focus:border-[#00BAF2] transition-all"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Email Address</label>
+                <input 
+                  type="email" 
+                  placeholder="orion.vance@celestial.io"
+                  className="w-full px-4 py-3 bg-gray-100 border border-slate-50 rounded-lg text-[13px] font-semibold text-slate-700 outline-none focus:border-[#00BAF2] transition-all"
+                />
+              </div>
+            </div>
+
+            {/* Role & Access Card */}
+            <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm space-y-6">
+              <div className="flex items-center gap-2.5 text-amber-500">
+                <Shield size={20} />
+                <h2 className="text-[16px] font-bold text-slate-900">Role & Access</h2>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Select Admin Role</label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[
+                    { name: 'Super Admin', desc: 'Unlimited access to all system sectors.', icon: Zap },
+                    { name: 'Support Agent', desc: 'User support and ticket management.', icon: User },
+                    { name: 'Moderator', desc: 'Content review and community safety.', icon: ShieldCheck },
+                    { name: 'Analyst', desc: 'Read-only cosmic data insights.', icon: BarChart3 }
+                  ].map((role) => (
+                    <div 
+                      key={role.name}
+                      onClick={() => setSelectedRole(role.name)}
+                      className={`p-4 rounded-lg border cursor-pointer transition-all flex items-start gap-3 ${
+                        selectedRole === role.name 
+                          ? 'border-[#00BAF2] bg-blue-50/30' 
+                          : 'border-slate-100 bg-gray-100/50 hover:bg-gray-100'
+                      }`}
+                    >
+                      <div className={`p-2 rounded-lg ${selectedRole === role.name ? 'bg-[#00BAF2] text-white' : 'bg-white text-slate-400'}`}>
+                        <role.icon size={18} />
+                      </div>
+                      <div>
+                        <h4 className="text-[13px] font-bold text-slate-900">{role.name}</h4>
+                        <p className="text-[10px] text-slate-400 font-semibold mt-0.5 leading-tight">{role.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Department</label>
+                <select className="w-full px-4 py-3 bg-gray-100 border border-slate-50 rounded-lg text-[13px] font-semibold text-slate-700 outline-none appearance-none cursor-pointer">
+                  <option>Technical Operations</option>
+                  <option>Customer Relations</option>
+                  <option>Data Analytics</option>
+                  <option>Content Moderation</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Security & Authentication Card */}
+            <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm space-y-6">
+              <div className="flex items-center gap-2.5 text-amber-500">
+                <Fingerprint size={20} />
+                <h2 className="text-[16px] font-bold text-slate-900">Security & Authentication</h2>
+              </div>
+
+              <div className="p-4 bg-gray-100 rounded-lg flex items-center justify-between">
+                <div>
+                  <h4 className="text-[13px] font-bold text-slate-900">Enforce Mandatory 2FA</h4>
+                  <p className="text-[10px] text-slate-400 font-semibold mt-0.5">Requires a multi-factor token for every login attempt.</p>
+                </div>
+                <div className="w-12 h-6 bg-[#00BAF2] rounded-lg relative cursor-pointer shadow-sm">
+                  <div className="absolute right-1 top-1 w-4 h-4 bg-white rounded-lg"></div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Temporary Password</label>
+                  <div className="relative">
+                    <input 
+                      type="text" 
+                      value="C3L3ST-X88V"
+                      readOnly
+                      className="w-full px-4 py-3 bg-gray-100 border border-slate-50 rounded-lg text-[13px] font-mono font-semibold text-slate-700 outline-none"
+                    />
+                    <button className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors">
+                      <RotateCcw size={14} />
+                    </button>
+                  </div>
+                  <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest pt-1">Valid for 24 hours until first login.</p>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">IP Restriction (Optional)</label>
+                  <input 
+                    type="text" 
+                    placeholder="0.0.0.0"
+                    className="w-full px-4 py-3 bg-gray-100 border border-slate-50 rounded-lg text-[13px] font-semibold text-slate-700 outline-none focus:border-[#00BAF2] transition-all"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Footer Actions */}
+            <div className="flex justify-center gap-4 pt-4">
+              <button 
+                onClick={() => setView('list')}
+                className="px-10 py-3 bg-white border border-slate-900 text-slate-900 rounded-lg text-[13px] font-bold hover:bg-slate-50 transition-all uppercase tracking-widest"
+              >
+                Cancel
+              </button>
+              <button className="px-10 py-3 bg-[#00BAF2] text-white rounded-lg text-[13px] font-bold hover:bg-[#00a3d6] transition-all shadow-lg shadow-blue-100 uppercase tracking-widest">
+                Create Administrator
+              </button>
+            </div>
+          </div>
+
+          {/* Right Column - Preview & Progress */}
+          <div className="lg:col-span-4 space-y-8">
+            {/* Previewing Role Card */}
+            <div className="relative rounded-lg overflow-hidden shadow-2xl bg-gradient-to-br from-[#0B0D17] to-[#1E293B] text-white flex flex-col min-h-[380px]">
+               {/* Background Glow */}
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#4D55FF]/20 blur-[100px] rounded-full"></div>
+               
+               <div className="relative z-10 p-8 flex flex-col h-full">
+                  <div className="flex justify-between items-start mb-10">
+                    <div>
+                      <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.2em] mb-1">Previewing Role</p>
+                      <h3 className="text-xl font-bold tracking-tight">{selectedRole}</h3>
+                    </div>
+                    <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center bg-white/5">
+                       <Star size={32} className="text-white/20" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4 mb-auto">
+                    <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest mb-2">Core Permissions</p>
+                    {[
+                      'Full access to Financials & Billing',
+                      'Ability to provision other Admins',
+                      'Direct database entry/deletion rights',
+                      'Override system-wide maintenance locks',
+                      'Access to highly encrypted Security Vault'
+                    ].map((perm, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <div className="mt-1 w-4 h-4 rounded-full bg-amber-400 flex items-center justify-center flex-shrink-0">
+                          <CheckCircle2 size={10} className="text-slate-900" />
+                        </div>
+                        <span className="text-[12px] font-semibold text-white/80 leading-snug">{perm}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-8 p-4 rounded-lg bg-white/5 border border-white/5 space-y-2">
+                     <div className="flex items-center gap-2 text-indigo-400">
+                        <AlertCircle size={14} />
+                        <span className="text-[10px] font-bold uppercase tracking-widest">Council Advisory</span>
+                     </div>
+                     <p className="text-[11px] text-white/50 font-semibold leading-relaxed">
+                        Assigning 'Super Admin' confers total control. Ensure the recipient is verified via physical biometric or hardware key.
+                     </p>
+                  </div>
+               </div>
+            </div>
+
+            {/* Onboarding Progress */}
+            <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm space-y-6">
+              <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Onboarding Progress</h4>
+              <div className="space-y-3">
+                 <div className="w-full h-2.5 bg-gray-100 rounded-lg overflow-hidden flex">
+                    <div className="w-[75%] h-full bg-indigo-500 rounded-lg"></div>
+                 </div>
+                 <p className="text-[11px] text-slate-400 font-semibold">
+                   75% of mandatory security fields completed.
+                 </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
       {/* Header */}
@@ -66,10 +294,13 @@ const SecurityAccess = () => {
           <p className="text-[14px] text-slate-500 mt-1 font-semibold">12 Active Admin Accounts</p>
         </div>
         <div className="flex gap-3">
-           <button className="bg-slate-900 text-white px-6 py-2.5 rounded-lg text-[13px] font-bold hover:bg-slate-800 transition-all shadow-lg shadow-slate-200">
+           <button className="bg-slate-900 text-white px-6 py-2.5 rounded-lg text-[13px] font-bold hover:bg-slate-800 transition-all shadow-lg shadow-slate-200 uppercase tracking-widest">
              Global Lockdown
            </button>
-           <button className="bg-[#00BAF2] text-white px-6 py-2.5 rounded-lg text-[13px] font-bold hover:bg-[#00a3d6] transition-all shadow-lg shadow-blue-100 flex items-center gap-2">
+           <button 
+            onClick={() => setView('add')}
+            className="bg-[#00BAF2] text-white px-6 py-2.5 rounded-lg text-[13px] font-bold hover:bg-[#00a3d6] transition-all shadow-lg shadow-blue-100 flex items-center gap-2 uppercase tracking-widest"
+           >
              <Plus size={18} /> Add New Admin
            </button>
         </div>
