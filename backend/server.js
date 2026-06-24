@@ -11,7 +11,7 @@ const JWT_SECRET = 'supersecretkey_astrology_123';
 app.post('/api/login', (req, res) => {
   const { email, password } = req.body;
 
-  if (email === 'Softkingo@gmail.com' && password === 'Softkingo123') {
+  if (email === 'Softkingo@gmail.com' && password === 'Softkingo@123') {
     const token = jwt.sign({ email, role: 'admin' }, JWT_SECRET, { expiresIn: '24h' });
     return res.json({ success: true, token, user: { email, role: 'admin' } });
   }

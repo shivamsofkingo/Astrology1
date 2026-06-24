@@ -83,7 +83,7 @@ const Login = () => {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3.5 bg-[#EEF2F6] border border-transparent rounded-xl focus:outline-none focus:bg-white focus:border-[#00BAF2] focus:ring-4 focus:ring-[#00BAF2]/10 transition-all text-[13px] tracking-widest text-slate-800 font-medium pr-12"
+                className="w-full px-4 py-3.5 bg-[#EEF2F6] border border-transparent rounded-xl focus:outline-none focus:bg-white focus:border-[#00BAF2] focus:ring-4 focus:ring-[#00BAF2]/10 transition-all text-[13px] tracking-normal text-slate-800 font-medium pr-12"
                 placeholder="•••••••••••"
                 required
               />
