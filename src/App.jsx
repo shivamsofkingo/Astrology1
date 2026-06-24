@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import AdminLayout from './layouts/AdminLayout';
 import AdminDashboard from './pages/AdminDashboard';
 import NotificationsCenter from './pages/NotificationsCenter';
@@ -8,6 +8,7 @@ import UserManagement from './pages/UserManagement';
 import UserDetails from './pages/UserDetails';
 import AstrologerManagement from './pages/AstrologerManagement';
 import AstrologerDetails from './pages/AstrologerDetails';
+import AddAstrologer from './pages/AddAstrologer';
 import ChatManagement from './pages/ChatManagement';
 import WalletsPayments from './pages/WalletsPayments';
 import BookingsManagement from './pages/BookingsManagement';
@@ -23,6 +24,7 @@ import MarketingGrowth from './pages/MarketingGrowth';
 import SettingsConfiguration from './pages/SettingsConfiguration';
 import HoroscopeKundli from './pages/HoroscopeKundli';
 import Localization from './pages/Localization';
+import Login from './pages/Login';
 
 // Generic Component for pages with no data yet
 const GenericModule = ({ title }) => (
@@ -33,35 +35,56 @@ const GenericModule = ({ title }) => (
   </div>
 );
 
+const PrivateRoute = ({ children }) => {
+  const token = localStorage.getItem('token');
+  const location = useLocation();
+
+  if (!token) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return children;
+};
+
 function App() {
   return (
     <Router>
-      <AdminLayout>
-        <Routes>
-          <Route path="/" element={<AdminDashboard />} />
-          <Route path="/profile" element={<AccountProfile />} />
-          <Route path="/users" element={<UserManagement />} />
-          <Route path="/users/:userId" element={<UserDetails />} />
-          <Route path="/astrologers" element={<AstrologerManagement />} />
-          <Route path="/astrologers/:id" element={<AstrologerDetails />} />
-          <Route path="/chat" element={<ChatManagement />} />
-          <Route path="/wallet" element={<WalletsPayments />} />
-          <Route path="/bookings" element={<BookingsManagement />} />
-          <Route path="/reports" element={<ReportsAnalytics />} />
-          <Route path="/reviews" element={<ReviewsRatings />} />
-          <Route path="/cms" element={<CMSDashboard />} />
-          <Route path="/notifications" element={<NotificationsCenter />} />
-          <Route path="/notification-management" element={<NotificationManagement />} />
-          <Route path="/offers" element={<OffersPromotions />} />
-          <Route path="/subscriptions" element={<SubscriptionManagement />} />
-          <Route path="/settings" element={<SettingsConfiguration />} />
-          <Route path="/support" element={<SupportManagement />} />
-          <Route path="/security" element={<SecurityAccess />} />
-          <Route path="/localization" element={<Localization />} />
-          <Route path="/horoscope" element={<HoroscopeKundli />} />
-          <Route path="/marketing" element={<MarketingGrowth />} />
-        </Routes>
-      </AdminLayout>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        
+        {/* Protected Routes */}
+        <Route path="/*" element={
+          <PrivateRoute>
+            <AdminLayout>
+              <Routes>
+                <Route path="/" element={<AdminDashboard />} />
+                <Route path="/profile" element={<AccountProfile />} />
+                <Route path="/users" element={<UserManagement />} />
+                <Route path="/users/:userId" element={<UserDetails />} />
+                <Route path="/astrologers" element={<AstrologerManagement />} />
+                <Route path="/astrologers/add" element={<AddAstrologer />} />
+                <Route path="/astrologers/:id" element={<AstrologerDetails />} />
+                <Route path="/chat" element={<ChatManagement />} />
+                <Route path="/wallet" element={<WalletsPayments />} />
+                <Route path="/bookings" element={<BookingsManagement />} />
+                <Route path="/reports" element={<ReportsAnalytics />} />
+                <Route path="/reviews" element={<ReviewsRatings />} />
+                <Route path="/cms" element={<CMSDashboard />} />
+                <Route path="/notifications" element={<NotificationsCenter />} />
+                <Route path="/notification-management" element={<NotificationManagement />} />
+                <Route path="/offers" element={<OffersPromotions />} />
+                <Route path="/subscriptions" element={<SubscriptionManagement />} />
+                <Route path="/settings" element={<SettingsConfiguration />} />
+                <Route path="/support" element={<SupportManagement />} />
+                <Route path="/security" element={<SecurityAccess />} />
+                <Route path="/localization" element={<Localization />} />
+                <Route path="/horoscope" element={<HoroscopeKundli />} />
+                <Route path="/marketing" element={<MarketingGrowth />} />
+              </Routes>
+            </AdminLayout>
+          </PrivateRoute>
+        } />
+      </Routes>
     </Router>
   );
 }

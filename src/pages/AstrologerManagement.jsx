@@ -69,6 +69,7 @@ const AstrologerRow = ({ id, name, avatar, joinDate, kycStatus, rate, specialty 
 };
 
 const AstrologerManagement = () => {
+  const navigate = useNavigate();
   const astrologers = [
     { id: 'AST-8812', name: 'Alex Josch', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80', joinDate: 'Oct 12, 2025', kycStatus: 'VERIFIED', rate: '20', specialty: 'VEDIC ASTROLOGY' },
     { id: 'AST-8813', name: 'Sarah Moon', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80', joinDate: 'Oct 14, 2025', kycStatus: 'VERIFIED', rate: '25', specialty: 'NUMEROLOGY' },
@@ -137,7 +138,10 @@ const AstrologerManagement = () => {
           </div>
         </div>
 
-        <button className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-[13px] font-semibold flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/20">
+        <button 
+          onClick={() => navigate('/astrologers/add')}
+          className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-[13px] font-semibold flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/20"
+        >
           <Plus size={18} /> Add New Astrologer
         </button>
       </div>

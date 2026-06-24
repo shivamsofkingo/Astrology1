@@ -3,9 +3,9 @@ import {
   LayoutDashboard, Users, UserCog, MessageSquare, Wallet, 
   CalendarCheck, BarChart3, Star, FileText, Bell, 
   Tag, CreditCard, Settings, LifeBuoy, ShieldCheck, 
-  Globe, Moon, TrendingUp
+  Globe, Moon, TrendingUp, LogOut
 } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const SidebarItem = ({ icon: Icon, label, path, active }) => (
   <Link to={path} className={`flex items-center gap-3 px-4 py-2 cursor-pointer transition-all mx-4 rounded-lg mb-2 ${
@@ -20,6 +20,12 @@ const SidebarItem = ({ icon: Icon, label, path, active }) => (
 
 const AdminLayout = ({ children }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
   const menuItems = [
     { icon: LayoutDashboard, label: 'Admin Dashboard', path: '/' },
     { icon: Users, label: 'User management', path: '/users' },
@@ -86,6 +92,13 @@ const AdminLayout = ({ children }) => {
           </div>
           
           <div className="flex items-center gap-4">
+            <button 
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white text-sm font-medium transition-colors"
+            >
+              <LogOut size={16} />
+              Logout
+            </button>
             <Link to="/notifications" className="relative p-2 bg-white rounded-full hover:bg-slate-50 text-[#00BAF2] cursor-pointer transition-all shadow-sm">
               <Bell size={20} />
               <span className="absolute top-0 right-0 w-3 h-3 bg-rose-500 rounded-full border-2 border-[#00BAF2]"></span>
