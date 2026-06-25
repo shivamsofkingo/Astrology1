@@ -5,8 +5,8 @@ import backgroundLogin from '../assets/backgroundlogin.png';
 import softkingoLogo from '../assets/softkingo-logo.d4fc7414.png';
 
 const Login = () => {
-  const [email, setEmail] = useState('Softkingo@gmail.com');
-  const [password, setPassword] = useState('Softkingo123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3.5 bg-[#EEF2F6] border border-transparent rounded-xl focus:outline-none focus:bg-white focus:border-[#00BAF2] focus:ring-4 focus:ring-[#00BAF2]/10 transition-all text-[13px] text-slate-800 font-medium"
-              placeholder="Softkingo@gmail.com"
+              placeholder="Enter email address"
               required
             />
           </div>
