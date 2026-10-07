@@ -1,31 +1,21 @@
-const express = require('express');
-const cors = require('cors');
-const jwt = require('jsonwebtoken');
+require("dotenv").config();
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+const app = require("./app");
+const sequelize = require("./config/database");
 
-const JWT_SECRET = 'supersecretkey_astrology_123';
+const PORT = Number(process.env.PORT || 5000);
 
-app.post('/api/login', (req, res) => {
-  const { email, password } = req.body;
+const startServer = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Database connected successfully");
 
-  if (email === 'Softkingo@gmail.com' && password === 'Softkingo@123') {
-    const token = jwt.sign({ email, role: 'admin' }, JWT_SECRET, { expiresIn: '24h' });
-    return res.json({ success: true, token, user: { email, role: 'admin' } });
+    app.listen(PORT, () => {
+      console.log(`Admin server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Unable to connect to database:", error);
   }
+};
 
-  return res.status(401).json({ success: false, message: 'Invalid credentials' });
-});
-
-app.post('/api/logout', (req, res) => {
-  // Since JWT is stateless, logout is typically handled client-side by deleting the token.
-  // We provide this endpoint to fulfill the request, it can be used to clear server-side sessions if added later.
-  res.json({ success: true, message: 'Logged out successfully' });
-});
-
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`Backend API running on http://localhost:${PORT}`);
-});
+startServer();

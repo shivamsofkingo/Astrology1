@@ -1,9 +1,10 @@
-import React from 'react';
-import { 
+import React, { useEffect, useState } from 'react';
+import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   BarChart, Bar, Cell, AreaChart, Area
 } from 'recharts';
 import { TrendingUp, AlertTriangle, UserPlus, Cloud } from 'lucide-react';
+import { getAllUsers } from '../api/userApi';
 
 // Static Data for Charts
 const revenueData = [
@@ -45,10 +46,9 @@ const LiveConsultationCard = ({ name, type, status, image }) => (
         <p className="text-[10px] text-slate-400 uppercase font-medium tracking-tighter">{type}</p>
       </div>
     </div>
-    <span className={`text-[9px] font-semibold px-3 py-1 rounded-lg uppercase tracking-tighter ${
-      status === 'In Progress' ? 'bg-amber-50 text-amber-500 border border-amber-100' :
+    <span className={`text-[9px] font-semibold px-3 py-1 rounded-lg uppercase tracking-tighter ${status === 'In Progress' ? 'bg-amber-50 text-amber-500 border border-amber-100' :
       status === 'Waiting' ? 'bg-[#334155] text-white' : 'bg-rose-50 text-rose-500 border border-rose-100'
-    }`}>
+      }`}>
       {status}
     </span>
   </div>
@@ -78,6 +78,23 @@ const AlertCard = ({ title, desc, time, type }) => {
 };
 
 const AdminDashboard = () => {
+  const [userCount, setUserCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const data = await getAllUsers();
+        setUserCount(data.count);
+      } catch (error) {
+        console.error("Failed to fetch users:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUsers();
+  }, []);
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -86,7 +103,7 @@ const AdminDashboard = () => {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <StatCard label="Total Users" value="124,582" valueColor="text-[#0000FF]" trend="+12.5%" trendColor="text-[#0000FF]" />
+        <StatCard label="Total Users" value={loading ? (<span className="inline-block w-16 h-6 bg-gray-200 rounded animate-pulse" />) : (userCount)} valueColor="text-[#0000FF]" trend="+12.5%" trendColor="text-[#0000FF]" />
         <StatCard label="Total Astrologers" value="3,120" valueColor="text-[#D4AF37]" trend="+4.2%" trendColor="text-[#D4AF37]" />
         <StatCard label="Total Earnings" value="$842,900" valueColor="text-[#0000FF]" trend="+21.8%" trendColor="text-[#0000FF]" />
       </div>
@@ -108,32 +125,32 @@ const AdminDashboard = () => {
               <AreaChart data={revenueData}>
                 <defs>
                   <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#0000FF" stopOpacity={0.1}/>
-                    <stop offset="95%" stopColor="#0000FF" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#0000FF" stopOpacity={0.1} />
+                    <stop offset="95%" stopColor="#0000FF" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
-                <XAxis 
-                  dataKey="name" 
-                  axisLine={false} 
-                  tickLine={false} 
+                <XAxis
+                  dataKey="name"
+                  axisLine={false}
+                  tickLine={false}
                   tick={{ fontSize: 10, fill: '#94A3B8', fontWeight: 500 }}
                   dy={10}
                 />
-                <YAxis 
-                  axisLine={false} 
-                  tickLine={false} 
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
                   tick={{ fontSize: 10, fill: '#94A3B8', fontWeight: 500 }}
                   tickFormatter={(value) => `${value}K`}
                 />
                 <Tooltip />
-                <Area 
-                  type="monotone" 
-                  dataKey="value" 
-                  stroke="#0000FF" 
-                  strokeWidth={2} 
-                  fillOpacity={1} 
-                  fill="url(#colorValue)" 
+                <Area
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#0000FF"
+                  strokeWidth={2}
+                  fillOpacity={1}
+                  fill="url(#colorValue)"
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -144,22 +161,22 @@ const AdminDashboard = () => {
         <div className="bg-white p-8 rounded-lg shadow-sm border border-slate-100 flex flex-col">
           <h3 className="text-lg font-semibold text-slate-900 mb-6 leading-tight">Live <br /> Consultations</h3>
           <div className="flex-grow space-y-4 border-slate-200">
-            <LiveConsultationCard 
-              name="Maya Moon" 
-              type="Psychic Reading" 
-              status="In Progress" 
+            <LiveConsultationCard
+              name="Maya Moon"
+              type="Psychic Reading"
+              status="In Progress"
               image="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80"
             />
-            <LiveConsultationCard 
-              name="Dr. Orion" 
-              type="Birth Chart Sync" 
-              status="Waiting" 
+            <LiveConsultationCard
+              name="Dr. Orion"
+              type="Birth Chart Sync"
+              status="Waiting"
               image="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80"
             />
-            <LiveConsultationCard 
-              name="Aria Star" 
-              type="Relationship Transit" 
-              status="Ended" 
+            <LiveConsultationCard
+              name="Aria Star"
+              type="Relationship Transit"
+              status="Ended"
               image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80"
             />
           </div>
@@ -178,10 +195,10 @@ const AdminDashboard = () => {
             <div className="md:col-span-3 h-[240px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={engagementData}>
-                  <XAxis 
-                    dataKey="name" 
-                    axisLine={false} 
-                    tickLine={false} 
+                  <XAxis
+                    dataKey="name"
+                    axisLine={false}
+                    tickLine={false}
                     tick={{ fontSize: 10, fill: '#94A3B8', fontWeight: 500 }}
                     dy={10}
                   />
@@ -213,21 +230,21 @@ const AdminDashboard = () => {
             <span className="text-[10px] font-semibold text-[#818CF8] bg-[#EEF2FF] px-4 py-1 rounded-lg uppercase">4 New Updates</span>
           </div>
           <div className="flex-grow flex flex-col gap-4">
-            <AlertCard 
+            <AlertCard
               type="error"
-              title="Mercury Sync Error" 
+              title="Mercury Sync Error"
               time="2m ago"
               desc="Transit calculation latency detected in Sector 7-G. System resonance drifting."
             />
-            <AlertCard 
+            <AlertCard
               type="new"
-              title="New High-Tier Mystic" 
+              title="New High-Tier Mystic"
               time="15m ago"
               desc="Master Astrologer 'Luna Sol' verified from Singapore."
             />
-            <AlertCard 
+            <AlertCard
               type="sync"
-              title="Cloud Soul-Sync Complete" 
+              title="Cloud Soul-Sync Complete"
               time="1h ago"
               desc="Database backups for the lunar cycle archived."
             />
