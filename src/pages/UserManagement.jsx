@@ -131,6 +131,7 @@ const UserManagement = () => {
   // search and role filters
   const [search, setSearch] = useState("");
   const [role, setRole] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
   // Show 10 users per page
   const limit = 10;
@@ -140,30 +141,38 @@ const UserManagement = () => {
   ======================================================= */
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 700);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  useEffect(() => {
     const fetchUsers = async () => {
       try {
         setLoading(true);
         const response = await getAllUsers(
           currentPage,
           limit,
-          search,
+          debouncedSearch,
           role
         );
         setUsers(response.users || []);
         setTotalUsers(response.totalUsers || 0);
         setTotalPages(response.totalPages || 1);
       } catch (error) {
-        console.error(
-          "Failed to fetch users:",
-          error
-        );
+        console.error("Failed to fetch users:", error);
         setUsers([]);
       } finally {
         setLoading(false);
       }
     };
     fetchUsers();
-  }, [currentPage, search, role]);
+  }, [currentPage, debouncedSearch, role]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearch]);
 
   /* =======================================================
      Convert API users into table users
@@ -314,7 +323,6 @@ const UserManagement = () => {
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
-              setCurrentPage(1);
             }}
             placeholder="Filter by name, email or mobile..."
             className="w-full pl-10 pr-4 py-2.5 bg-transparent border border-slate-200 rounded-lg text-[13px] text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#00BAF2] focus:border-[#00BAF2]"
@@ -391,7 +399,7 @@ const UserManagement = () => {
                   User Profile
                 </th>
                 <th className="py-4 px-6 text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
-                  Mobile
+                  Mobile Number
                 </th>
                 <th className="py-4 px-6 text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
                   Gender

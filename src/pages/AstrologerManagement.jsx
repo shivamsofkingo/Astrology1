@@ -18,7 +18,7 @@ const StatCard = ({ icon: Icon, label, value, colorClass, bgClass }) => (
   </div>
 );
 
-const AstrologerRow = ({ id, fullName, profileImage, about, isApproved, isRejected, createdAt, chatRate, callRate, videoCallRate, specializations, }) => {
+const AstrologerRow = ({ id, fullName, profileImage, mobileNumber, gender, about, isApproved, isRejected, createdAt, chatRate, callRate, videoCallRate, specializations, }) => {
   const navigate = useNavigate();
   const status = isRejected ? 'Rejected' : isApproved ? 'Approved' : 'Pending';
 
@@ -55,6 +55,16 @@ const AstrologerRow = ({ id, fullName, profileImage, about, isApproved, isReject
             <p className="text-[11px] text-slate-400 font-medium">ID: {id}</p>
           </div>
         </div>
+      </td>
+
+      {/* Mobile Number */}
+      <td className="py-4 px-6 text-center text-[13px] font-medium text-slate-600 whitespace-nowrap">
+        {mobileNumber || '—'}
+      </td>
+
+      {/* Gender */}
+      <td className="py-4 px-6 text-center text-[13px] font-medium text-slate-600">
+        {gender ? gender.charAt(0).toUpperCase() + gender.slice(1).toLowerCase() : '—'}
       </td>
 
       {/* Join Date */}
@@ -158,7 +168,15 @@ const AstrologerManagement = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const limit = 10;
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 700);
+    return () => clearTimeout(timer);
+  }, [search]);
 
   useEffect(() => {
     let isMounted = true;
@@ -166,7 +184,7 @@ const AstrologerManagement = () => {
       try {
         setAstrologerLoading(true);
         setAstrologerError('');
-        const response = await getAllAstrologers(currentPage, limit, search);
+        const response = await getAllAstrologers(currentPage, limit, debouncedSearch);
         if (isMounted) {
           setAstrologers(response.astrologers || []);
           setAstrologerCount(response.totalAstrologers || 0);
@@ -190,7 +208,11 @@ const AstrologerManagement = () => {
     return () => {
       isMounted = false;
     };
-  }, [currentPage, limit, search]);
+  }, [currentPage, limit, debouncedSearch]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearch]);
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
@@ -237,8 +259,8 @@ const AstrologerManagement = () => {
         <div className="flex flex-wrap items-center gap-4">
           <div className="relative">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input type="search" value={search} onChange={(event) => { setSearch(event.target.value); setCurrentPage(1); }}
-              placeholder="Search name or mobile..." className="bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-4 py-2.5 text-[13px] text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+            <input type="search" value={search} onChange={(e) => { setSearch(e.target.value); }}
+              placeholder="Search name or mobile..." className="bg-slate-50 w-75 border border-slate-200 rounded-lg pl-9 pr-4 py-2.5 text-[13px] text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
           </div>
 
           {/* Specialtization */}
@@ -280,6 +302,8 @@ const AstrologerManagement = () => {
             <thead>
               <tr className="bg-slate-50/50 border-b border-slate-100">
                 <th className="py-5 px-6 text-[11px] font-semibold text-slate-500 uppercase tracking-widest">User Profile</th>
+                <th className="py-5 px-6 text-[11px] font-semibold text-slate-500 uppercase tracking-widest text-center">Mobile Number</th>
+                <th className="py-5 px-6 text-[11px] font-semibold text-slate-500 uppercase tracking-widest text-center">Gender</th>
                 <th className="py-5 px-6 text-[11px] font-semibold text-slate-500 uppercase tracking-widest text-center">Join Date</th>
                 <th className="py-5 px-6 text-[11px] font-semibold text-slate-500 uppercase tracking-widest text-center">KYC Status</th>
                 <th className="py-5 px-6 text-[11px] font-semibold text-slate-500 uppercase tracking-widest text-center">Chat Rate</th>
@@ -292,19 +316,19 @@ const AstrologerManagement = () => {
             <tbody>
               {astrologerLoading ? (
                 <tr>
-                  <td colSpan="8" className="py-12 text-center text-slate-400">
+                  <td colSpan="10" className="py-12 text-center text-slate-400">
                     Loading astrologers...
                   </td>
                 </tr>
               ) : astrologerError ? (
                 <tr>
-                  <td colSpan="8" className="py-12 text-center text-rose-600">
+                  <td colSpan="10" className="py-12 text-center text-rose-600">
                     {astrologerError}
                   </td>
                 </tr>
               ) : astrologers.length === 0 ? (
                 <tr>
-                  <td colSpan="8" className="py-12 text-center text-slate-400">
+                  <td colSpan="10" className="py-12 text-center text-slate-400">
                     No astrologers found.
                   </td>
                 </tr>
