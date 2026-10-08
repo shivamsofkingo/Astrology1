@@ -90,8 +90,8 @@ const AdminDashboard = () => {
           getAllUsers(),
           getAllAstrologers(),
         ]);
-        setUserCount(usersData.count);
-        setAstrologerCount(astrologersData.count);
+        setUserCount(usersData.totalUsers);
+        setAstrologerCount(astrologersData.totalAstrologers);
       } catch (error) {
         console.error("Failed to fetch dashboard data:", error);
       } finally {

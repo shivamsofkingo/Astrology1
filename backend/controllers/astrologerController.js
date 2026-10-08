@@ -2,11 +2,17 @@ const astrologerService = require("../services/astrologerService");
 
 const getAllAstrologers = async (req, res) => {
     try {
-        const astrologers = await astrologerService.getAllAstrologers();
+        const page = parseInt(req.query.page, 10) || 1;
+        const limit = parseInt(req.query.limit, 10) || 10;
+        const search = req.query.search || "";
+        const result = await astrologerService.getAllAstrologers(
+            page,
+            limit,
+            search
+        );
         res.status(200).json({
             success: true,
-            count: astrologers.length,
-            data: astrologers,
+            ...result,
         });
     } catch (error) {
         console.error("Get astrologers error:", error);
