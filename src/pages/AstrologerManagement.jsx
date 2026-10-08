@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Users, Zap, Clock, ShieldAlert,
   ChevronDown, Plus, ChevronRight, Search
 } from 'lucide-react';
+import { getAllAstrologers } from '../api/astrologerApi';
 
 const StatCard = ({ icon: Icon, label, value, colorClass, bgClass }) => (
   <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm flex items-center gap-4 flex-1">
@@ -22,7 +23,7 @@ const AstrologerRow = ({ id, name, avatar, joinDate, kycStatus, rate, specialty 
   return (
     <tr className="border-b border-slate-50 last:border-0 hover:bg-slate-50/50 transition-colors">
       <td className="py-4 px-6">
-        <div 
+        <div
           onClick={() => navigate(`/astrologers/${id}`)}
           className="flex items-center gap-3 cursor-pointer group"
         >
@@ -57,7 +58,7 @@ const AstrologerRow = ({ id, name, avatar, joinDate, kycStatus, rate, specialty 
         </div>
       </td>
       <td className="py-4 px-6 text-right">
-        <button 
+        <button
           onClick={() => navigate(`/astrologers/${id}`)}
           className="p-2 rounded-full border border-slate-200 text-slate-400 hover:bg-slate-50 hover:text-indigo-500 transition-all"
         >
@@ -70,12 +71,28 @@ const AstrologerRow = ({ id, name, avatar, joinDate, kycStatus, rate, specialty 
 
 const AstrologerManagement = () => {
   const navigate = useNavigate();
+  const [astrologerCount, setAstrologerCount] = useState(0);
+  const [astrologerLoading, setAstrologerLoading] = useState(true);
   const astrologers = [
     { id: 'AST-8812', name: 'Alex Josch', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80', joinDate: 'Oct 12, 2025', kycStatus: 'VERIFIED', rate: '20', specialty: 'VEDIC ASTROLOGY' },
     { id: 'AST-8813', name: 'Sarah Moon', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80', joinDate: 'Oct 14, 2025', kycStatus: 'VERIFIED', rate: '25', specialty: 'NUMEROLOGY' },
     { id: 'AST-8814', name: 'David Star', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80', joinDate: 'Oct 15, 2025', kycStatus: 'VERIFIED', rate: '15', specialty: 'TAROT READING' },
     { id: 'AST-8815', name: 'Elena Sun', avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=128&q=80', joinDate: 'Oct 18, 2025', kycStatus: 'VERIFIED', rate: '30', specialty: 'VEDIC ASTROLOGY' },
   ];
+
+  useEffect(() => {
+    const fetchAstrologers = async () => {
+      try {
+        const data = await getAllAstrologers();
+        setAstrologerCount(data.count);
+      } catch (error) {
+        console.error("Failed to fetch astrologers:", error);
+      } finally {
+        setAstrologerLoading(false);
+      }
+    };
+    fetchAstrologers();
+  }, []);
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
@@ -88,7 +105,7 @@ const AstrologerManagement = () => {
         <StatCard
           icon={Users}
           label="Total Astrologers"
-          value="1,248"
+          value={astrologerLoading ? (<span className="inline-block w-16 h-6 bg-gray-200 rounded animate-pulse" />) : (astrologerCount)}
           colorClass="text-indigo-500"
           bgClass="bg-indigo-50"
         />
@@ -138,7 +155,7 @@ const AstrologerManagement = () => {
           </div>
         </div>
 
-        <button 
+        <button
           onClick={() => navigate('/astrologers/add')}
           className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-[13px] font-semibold flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/20"
         >

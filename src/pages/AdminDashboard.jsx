@@ -5,6 +5,7 @@ import {
 } from 'recharts';
 import { TrendingUp, AlertTriangle, UserPlus, Cloud } from 'lucide-react';
 import { getAllUsers } from '../api/userApi';
+import { getAllAstrologers } from '../api/astrologerApi';
 
 // Static Data for Charts
 const revenueData = [
@@ -79,22 +80,26 @@ const AlertCard = ({ title, desc, time, type }) => {
 
 const AdminDashboard = () => {
   const [userCount, setUserCount] = useState(0);
+  const [astrologerCount, setAstrologerCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchData = async () => {
       try {
-        const data = await getAllUsers();
-        setUserCount(data.count);
+        const [usersData, astrologersData] = await Promise.all([
+          getAllUsers(),
+          getAllAstrologers(),
+        ]);
+        setUserCount(usersData.count);
+        setAstrologerCount(astrologersData.count);
       } catch (error) {
-        console.error("Failed to fetch users:", error);
+        console.error("Failed to fetch dashboard data:", error);
       } finally {
         setLoading(false);
       }
     };
-    fetchUsers();
+    fetchData();
   }, []);
-
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -103,8 +108,8 @@ const AdminDashboard = () => {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <StatCard label="Total Users" value={loading ? (<span className="inline-block w-16 h-6 bg-gray-200 rounded animate-pulse" />) : (userCount)} valueColor="text-[#0000FF]" trend="+12.5%" trendColor="text-[#0000FF]" />
-        <StatCard label="Total Astrologers" value="3,120" valueColor="text-[#D4AF37]" trend="+4.2%" trendColor="text-[#D4AF37]" />
+        <StatCard label="Total Users" value={loading ? (<span className="inline-block w-16 h-6 bg-gray-200 rounded animate-pulse" />) : (userCount.toLocaleString())} valueColor="text-[#0000FF]" trend="+12.5%" trendColor="text-[#0000FF]" />
+        <StatCard label="Total Astrologers" value={loading ? (<span className="inline-block w-16 h-6 bg-gray-200 rounded animate-pulse" />) : (astrologerCount.toLocaleString())} valueColor="text-[#D4AF37]" trend="+4.2%" trendColor="text-[#D4AF37]" />
         <StatCard label="Total Earnings" value="$842,900" valueColor="text-[#0000FF]" trend="+21.8%" trendColor="text-[#0000FF]" />
       </div>
 

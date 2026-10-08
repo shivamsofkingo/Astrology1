@@ -3,6 +3,7 @@ const cors = require("cors");
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const astrologerRoutes = require("./routes/astrologerRoutes");
 
 const app = express();
 
@@ -21,5 +22,8 @@ app.use("/api", authRoutes);
 
 // User routes
 app.use("/api/admin/users", userRoutes);
+
+// Astrologer routes
+app.use("/api/admin/astrologers", astrologerRoutes);
 
 module.exports = app;
