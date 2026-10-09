@@ -1,13 +1,25 @@
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 const Astrologer = require("../models/Astrologer");
 
-const getAllAstrologers = async (page = 1, limit = 10, search = "") => {
+const getAllAstrologers = async (page = 1, limit = 10, search = "", specialization = "") => {
     const offset = (page - 1) * limit;
     const where = {};
     if (search) {
         where[Op.or] = [
             { fullName: { [Op.like]: `%${search}%` } },
             { mobileNumber: { [Op.like]: `%${search}%` } },
+        ];
+    }
+    if (specialization) {
+        where[Op.and] = [
+            Sequelize.where(
+                Sequelize.fn(
+                    "JSON_CONTAINS",
+                    Sequelize.col("specializations"),
+                    JSON.stringify(specialization)
+                ),
+                1
+            ),
         ];
     }
     const { count, rows } = await Astrologer.findAndCountAll({

@@ -21,10 +21,13 @@ const getAllAstrologers = async (req, res) => {
         const page = parseInt(req.query.page, 10) || 1;
         const limit = parseInt(req.query.limit, 10) || 10;
         const search = req.query.search || "";
+        const specialization = req.query.specialization || "";
+
         const result = await astrologerService.getAllAstrologers(
             page,
             limit,
-            search
+            search,
+            specialization
         );
         res.status(200).json({
             success: true,

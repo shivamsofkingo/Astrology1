@@ -6,6 +6,19 @@ import {
 } from 'lucide-react';
 import { getAllAstrologers } from '../api/astrologerApi';
 
+const getProfileImageUrl = (imagePath) => {
+  if (!imagePath) return "";
+
+  const apiBaseUrl = import.meta.env.VITE_API_URL;
+
+  if (!apiBaseUrl) {
+    console.error("VITE_API_URL is not configured");
+    return "";
+  }
+
+  return new URL(imagePath, apiBaseUrl).href;
+};
+
 const StatCard = ({ icon: Icon, label, value, colorClass, bgClass }) => (
   <div className="bg-white p-6 rounded-lg border border-slate-100 shadow-sm flex items-center gap-4 flex-1">
     <div className={`${bgClass} ${colorClass} p-3 rounded-lg`}>
@@ -41,7 +54,7 @@ const AstrologerRow = ({ id, fullName, profileImage, mobileNumber, gender, about
         >
           {profileImage ? (
             <img
-              src={profileImage}
+              src={getProfileImageUrl(profileImage)}
               alt={fullName || 'Astrologer'}
               className="w-10 h-10 rounded-full border border-slate-100 object-cover group-hover:scale-105 transition-transform"
             />
@@ -68,8 +81,10 @@ const AstrologerRow = ({ id, fullName, profileImage, mobileNumber, gender, about
       </td>
 
       {/* Join Date */}
-      <td className="py-4 px-6 text-center">
-        <p className="text-[14px] font-medium text-slate-600">{joinDate}</p>
+      <td className="py-4 px-2 text-center text-[13px] font-medium text-slate-600">
+        <p className="text-[14px] font-medium text-slate-600">
+          {joinDate}
+        </p>
       </td>
 
       {/* Approval and availability status */}
@@ -89,30 +104,30 @@ const AstrologerRow = ({ id, fullName, profileImage, mobileNumber, gender, about
       </td>
 
       {/* Chat Rate */}
-      <td className="py-4 px-6 text-center">
+      <td className="py-4 px-3 text-center">
         <p className="text-[14px] font-semibold text-amber-500">
           ₹ {chatRate ?? 0}
-          <span className="text-[10px] text-slate-400 font-medium ml-1">
-            /-min
+          <span className="text-[10px] text-slate-400 font-medium">
+            /min
           </span>
         </p>
       </td>
 
       {/* Call Rate */}
-      <td className="py-4 px-6 text-center">
+      <td className="py-4 px-3 text-center">
         <p className="text-[14px] font-semibold text-amber-500">
           ₹ {callRate ?? 0}
-          <span className="text-[10px] text-slate-400 font-medium ml-1">
-            /-min
+          <span className="text-[10px] text-slate-400 font-medium">
+            /min
           </span>
         </p>
       </td>
 
       {/* Video Call Rate */}
-      <td className="py-4 px-6 text-center">
+      <td className="py-4 px-3 text-center">
         <p className="text-[14px] font-semibold text-amber-500">
           ₹ {videoCallRate ?? 0}
-          <span className="text-[10px] text-slate-400 font-medium ml-1">/-min</span>
+          <span className="text-[10px] text-slate-400 font-medium">/min</span>
         </p>
       </td>
 
@@ -164,6 +179,7 @@ const AstrologerManagement = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [specialization, setSpecialization] = useState("");
   const limit = 10;
 
   useEffect(() => {
@@ -179,7 +195,7 @@ const AstrologerManagement = () => {
       try {
         setAstrologerLoading(true);
         setAstrologerError('');
-        const response = await getAllAstrologers(currentPage, limit, debouncedSearch);
+        const response = await getAllAstrologers(currentPage, limit, debouncedSearch, specialization);
         if (isMounted) {
           setAstrologers(response.astrologers || []);
           setAstrologerCount(response.totalAstrologers || 0);
@@ -203,7 +219,7 @@ const AstrologerManagement = () => {
     return () => {
       isMounted = false;
     };
-  }, [currentPage, limit, debouncedSearch]);
+  }, [currentPage, limit, debouncedSearch, specialization]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -258,16 +274,24 @@ const AstrologerManagement = () => {
               placeholder="Search name or mobile..." className="bg-slate-50 w-75 border border-slate-200 rounded-lg pl-9 pr-4 py-2.5 text-[13px] text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
           </div>
 
-          {/* Specialtization */}
+          {/* Specialization Filter */}
           <div className="relative">
-            <select className="appearance-none bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 pr-10 text-[13px] font-semibold text-slate-700 min-w-[160px] cursor-pointer hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500/20">
-              <option>Specialization</option>
-              <option>Vedic Astrology</option>
-              <option>Tarot Reading</option>
-              <option>Numerology</option>
-              <option>Vastu Shastra</option>
-              <option>Other</option>
+            <select
+              value={specialization}
+              onChange={(e) => {
+                setSpecialization(e.target.value);
+                setCurrentPage(1);
+              }}
+              className="appearance-none bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 pr-10 text-[13px] font-semibold text-slate-700 min-w-[160px] cursor-pointer hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+            >
+              <option value="">All Specializations</option>
+              <option value="Vedic Astrology">Vedic Astrology</option>
+              <option value="Tarot Reading">Tarot Reading</option>
+              <option value="Numerology">Numerology</option>
+              <option value="Vastu Shastra">Vastu Shastra</option>
+              <option value="Other">Other</option>
             </select>
+
             <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={16} />
           </div>
 
