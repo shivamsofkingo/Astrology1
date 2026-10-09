@@ -138,11 +138,6 @@ const AstrologerRow = ({ id, fullName, profileImage, mobileNumber, gender, about
               {specializations}
             </span>
           )}
-          {about && (
-            <div className="basis-full max-w-xs mx-auto text-center text-[10px] text-slate-400 line-clamp-2" title={about}>
-              {about}
-            </div>
-          )}
         </div>
       </td>
 
@@ -267,9 +262,11 @@ const AstrologerManagement = () => {
           <div className="relative">
             <select className="appearance-none bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 pr-10 text-[13px] font-semibold text-slate-700 min-w-[160px] cursor-pointer hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500/20">
               <option>Specialization</option>
-              <option>Vedic</option>
-              <option>Tarot</option>
+              <option>Vedic Astrology</option>
+              <option>Tarot Reading</option>
               <option>Numerology</option>
+              <option>Vastu Shastra</option>
+              <option>Other</option>
             </select>
             <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={16} />
           </div>

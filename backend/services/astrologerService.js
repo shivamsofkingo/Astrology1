@@ -25,6 +25,32 @@ const getAllAstrologers = async (page = 1, limit = 10, search = "") => {
     };
 };
 
+const createAstrologer = async (data) => {
+    return await Astrologer.create({
+        mobileNumber: data.mobileNumber,
+        email: data.email,
+        fullName: data.fullName,
+        profileImage: data.profileImage,
+        about: data.about,
+        age: Number(data.age),
+        gender: data.gender,
+        experience: Number(data.experience),
+        specializations: data.specializations,
+        languages: data.languages,
+        certificateUrl: data.certificateUrl,
+        idProofUrl: data.idProofUrl,
+        chatRate: Number(data.chatRate),
+        callRate: Number(data.callRate),
+        videoCallRate: Number(data.videoCallRate),
+        isApproved: false,
+        isRejected: false,
+        profileCompleted: true,
+        isAvailable: false,
+        bankDetails: null
+    });
+};
+
 module.exports = {
     getAllAstrologers,
+    createAstrologer
 };

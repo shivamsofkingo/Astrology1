@@ -6,3 +6,8 @@ export const getAllAstrologers = async (page = 1, limit = 10, search = "") => {
     });
     return response.data;
 };
+
+export const createAstrologer = async (formData) => {
+    const response = await axiosInstance.post("/api/admin/astrologers", formData);
+    return response.data;
+};

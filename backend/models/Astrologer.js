@@ -7,6 +7,11 @@ const Astrologer = sequelize.define('astrologer', {
         allowNull: false,
         unique: true
     },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
     fullName: {
         type: DataTypes.STRING,
         allowNull: true
