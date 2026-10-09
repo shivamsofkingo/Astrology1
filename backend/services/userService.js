@@ -5,7 +5,6 @@ const getAllUsers = async (
     page = 1,
     limit = 10,
     search = "",
-    role = ""
 ) => {
     const offset = (page - 1) * limit;
     const where = {};
@@ -29,11 +28,6 @@ const getAllUsers = async (
                 },
             },
         ];
-    }
-
-    // Role filter
-    if (role && role !== "All roles") {
-        where.role = role;
     }
 
     const { count, rows } = await User.findAndCountAll({

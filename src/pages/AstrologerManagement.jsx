@@ -31,7 +31,7 @@ const StatCard = ({ icon: Icon, label, value, colorClass, bgClass }) => (
   </div>
 );
 
-const AstrologerRow = ({ id, fullName, profileImage, mobileNumber, gender, about, isApproved, isRejected, createdAt, chatRate, callRate, videoCallRate, specializations, }) => {
+const AstrologerRow = ({ id, fullName, email, profileImage, mobileNumber, gender, about, isApproved, isRejected, createdAt, chatRate, callRate, videoCallRate, specializations, }) => {
   const navigate = useNavigate();
   const status = isRejected ? 'Rejected' : isApproved ? 'Approved' : 'Pending';
 
@@ -65,7 +65,7 @@ const AstrologerRow = ({ id, fullName, profileImage, mobileNumber, gender, about
           )}
           <div>
             <p className="text-[14px] font-semibold text-slate-900 group-hover:text-indigo-500 transition-colors">{fullName || 'Unnamed Astrologer'}</p>
-            <p className="text-[11px] text-slate-400 font-medium">ID: {id}</p>
+            <p className="text-[11px] text-slate-400 font-medium">{email || 'No email'}</p>
           </div>
         </div>
       </td>
@@ -271,7 +271,7 @@ const AstrologerManagement = () => {
           <div className="relative">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input type="search" value={search} onChange={(e) => { setSearch(e.target.value); }}
-              placeholder="Search name or mobile..." className="bg-slate-50 w-75 border border-slate-200 rounded-lg pl-9 pr-4 py-2.5 text-[13px] text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+              placeholder="Search name, email or mobile..." className="bg-slate-50 w-75 border border-slate-200 rounded-lg pl-9 pr-4 py-2.5 text-[13px] text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
           </div>
 
           {/* Specialization Filter */}

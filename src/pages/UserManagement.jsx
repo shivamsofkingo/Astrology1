@@ -130,7 +130,6 @@ const UserManagement = () => {
 
   // search and role filters
   const [search, setSearch] = useState("");
-  const [role, setRole] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
 
   // Show 10 users per page
@@ -155,7 +154,6 @@ const UserManagement = () => {
           currentPage,
           limit,
           debouncedSearch,
-          role
         );
         setUsers(response.users || []);
         setTotalUsers(response.totalUsers || 0);
@@ -168,7 +166,7 @@ const UserManagement = () => {
       }
     };
     fetchUsers();
-  }, [currentPage, debouncedSearch, role]);
+  }, [currentPage, debouncedSearch]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -324,7 +322,7 @@ const UserManagement = () => {
             onChange={(e) => {
               setSearch(e.target.value);
             }}
-            placeholder="Filter by name, email or mobile..."
+            placeholder="Search name, email or mobile..."
             className="w-full pl-10 pr-4 py-2.5 bg-transparent border border-slate-200 rounded-lg text-[13px] text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#00BAF2] focus:border-[#00BAF2]"
           />
         </div>
@@ -345,14 +343,7 @@ const UserManagement = () => {
 
         {/* Roles */}
         <div className="relative min-w-[140px]">
-          <select
-            value={role}
-            onChange={(e) => {
-              setRole(e.target.value);
-              setCurrentPage(1);
-            }}
-            className="w-full px-4 py-2.5 bg-transparent border border-slate-200 rounded-lg text-[13px] text-slate-700 font-medium appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#00BAF2] focus:border-[#00BAF2]"
-          >
+          <select className="w-full px-4 py-2.5 bg-transparent border border-slate-200 rounded-lg text-[13px] text-slate-700 font-medium appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#00BAF2] focus:border-[#00BAF2]">
             <option value="">
               All roles
             </option>

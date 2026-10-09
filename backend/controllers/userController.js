@@ -5,12 +5,10 @@ const getAllUsers = async (req, res) => {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
         const search = req.query.search || "";
-        const role = req.query.role || "";
         const result = await userService.getAllUsers(
             page,
             limit,
             search,
-            role
         );
         res.status(200).json({
             success: true,

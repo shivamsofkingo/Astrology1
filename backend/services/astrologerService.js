@@ -8,6 +8,7 @@ const getAllAstrologers = async (page = 1, limit = 10, search = "", specializati
         where[Op.or] = [
             { fullName: { [Op.like]: `%${search}%` } },
             { mobileNumber: { [Op.like]: `%${search}%` } },
+            { email: { [Op.like]: `%${search}%` } },
         ];
     }
     if (specialization) {
