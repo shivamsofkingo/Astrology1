@@ -25,6 +25,7 @@ import SettingsConfiguration from './pages/SettingsConfiguration';
 import HoroscopeKundli from './pages/HoroscopeKundli';
 import Localization from './pages/Localization';
 import CategoriesManagement from './pages/CategoriesManagement';
+import AddCategory from './pages/AddCategory';
 import SubcategoriesManagement from './pages/SubcategoriesManagement';
 import Login from './pages/Login';
 
@@ -76,6 +77,7 @@ function App() {
                 <Route path="/notification-management" element={<NotificationManagement />} />
                 <Route path="/offers" element={<OffersPromotions />} />
                 <Route path="/categories" element={<CategoriesManagement />} />
+                <Route path="/categories/add" element={<AddCategory />} />
                 <Route path="/subcategories" element={<SubcategoriesManagement />} />
                 <Route path="/subscriptions" element={<SubscriptionManagement />} />
                 <Route path="/settings" element={<SettingsConfiguration />} />

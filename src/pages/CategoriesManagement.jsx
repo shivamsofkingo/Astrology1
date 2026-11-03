@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { AlertCircle, Package, ShoppingBag } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { AlertCircle, Package, Plus, ShoppingBag } from 'lucide-react';
 import { getCategories } from '../api/categoryApi';
 
 const getCategoryImageUrl = (image) => {
@@ -53,6 +54,7 @@ const CategoryCard = ({ category }) => {
 };
 
 const CategoriesManagement = () => {
+  const navigate = useNavigate();
   const [categoryState, setCategoryState] = useState({ categories: [], loading: true, error: '' });
 
   const loadCategories = useCallback(() => {
@@ -85,14 +87,25 @@ const CategoriesManagement = () => {
             <ShoppingBag size={18} />
             <span className="text-[11px] font-semibold uppercase tracking-[0.16em]">Catalog</span>
           </div>
-          <h1 className="text-2xl font-semibold tracking-tight text-slate-900">Category Management</h1>
+          <div className="flex flex-wrap items-center gap-3">
+            <h1 className="text-2xl font-semibold tracking-tight text-slate-900">Category Management</h1>
+            {!categoryState.loading && !categoryState.error && (
+              <span className="rounded-full bg-[#F0FAFB] px-3 py-1 text-[11px] font-semibold text-[#008FB8]">
+                {categoryState.categories.length} {categoryState.categories.length === 1 ? 'category' : 'categories'}
+              </span>
+            )}
+          </div>
           <p className="mt-1 text-sm text-slate-500">View all active categories in your catalog.</p>
         </div>
-        {!categoryState.loading && !categoryState.error && (
-          <span className="shrink-0 self-start rounded-full bg-[#F0FAFB] px-3 py-1 text-[11px] font-semibold text-[#008FB8] sm:self-center">
-            {categoryState.categories.length} {categoryState.categories.length === 1 ? 'category' : 'categories'}
-          </span>
-        )}
+        <div className="flex shrink-0 items-center gap-3 self-start sm:self-center">
+          <button
+            type="button"
+            onClick={() => navigate('/categories/add')}
+            className="inline-flex items-center gap-2 rounded-lg bg-[#00BAF2] px-4 py-2.5 text-[13px] font-semibold text-white transition hover:bg-[#00a3d6]"
+          >
+            <Plus size={16} /> Add category
+          </button>
+        </div>
       </header>
 
       {categoryState.error ? (
