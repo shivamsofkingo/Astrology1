@@ -3,7 +3,7 @@ import {
   LayoutDashboard, Users, UserCog, MessageSquare, Wallet, 
   CalendarCheck, BarChart3, Star, FileText, Bell, 
   Tag, CreditCard, Settings, LifeBuoy, ShieldCheck, 
-  Globe, Moon, TrendingUp, LogOut
+  Globe, Moon, TrendingUp, LogOut, ShoppingBag
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -38,6 +38,7 @@ const AdminLayout = ({ children }) => {
     { icon: FileText, label: 'CMS (Content Management System)', path: '/cms' },
     { icon: Bell, label: 'Notifications Management', path: '/notification-management' },
     { icon: Tag, label: 'Offers & Promotions', path: '/offers' },
+    { icon: ShoppingBag, label: 'Products', path: '/products' },
     { icon: CreditCard, label: 'Subscription & Membership Plans', path: '/subscriptions' },
     { icon: Settings, label: 'Settings & Configuration', path: '/settings' },
     { icon: LifeBuoy, label: 'Dispute & Support Management', path: '/support' },
