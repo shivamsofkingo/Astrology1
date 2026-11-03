@@ -6,6 +6,7 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const astrologerRoutes = require("./routes/astrologerRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
+const subcategoryRoutes = require("./routes/subcategoryRoutes");
 
 const app = express();
 
@@ -31,5 +32,6 @@ app.use("/api/admin/astrologers", astrologerRoutes);
 
 // Product catalog categories
 app.use("/api/categories", categoryRoutes);
+app.use("/api/subcategories", subcategoryRoutes);
 
 module.exports = app;

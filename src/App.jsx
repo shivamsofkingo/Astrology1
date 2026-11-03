@@ -24,7 +24,8 @@ import MarketingGrowth from './pages/MarketingGrowth';
 import SettingsConfiguration from './pages/SettingsConfiguration';
 import HoroscopeKundli from './pages/HoroscopeKundli';
 import Localization from './pages/Localization';
-import ProductsManagement from './pages/ProductsManagement';
+import CategoriesManagement from './pages/CategoriesManagement';
+import SubcategoriesManagement from './pages/SubcategoriesManagement';
 import Login from './pages/Login';
 
 // Generic Component for pages with no data yet
@@ -74,7 +75,8 @@ function App() {
                 <Route path="/notifications" element={<NotificationsCenter />} />
                 <Route path="/notification-management" element={<NotificationManagement />} />
                 <Route path="/offers" element={<OffersPromotions />} />
-                <Route path="/products" element={<ProductsManagement />} />
+                <Route path="/categories" element={<CategoriesManagement />} />
+                <Route path="/subcategories" element={<SubcategoriesManagement />} />
                 <Route path="/subscriptions" element={<SubscriptionManagement />} />
                 <Route path="/settings" element={<SettingsConfiguration />} />
                 <Route path="/support" element={<SupportManagement />} />
