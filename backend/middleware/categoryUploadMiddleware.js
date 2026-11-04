@@ -24,19 +24,29 @@ const upload = multer({
     limits: { fileSize: 10 * 1024 * 1024, files: 1 },
     fileFilter: (req, file, callback) => {
         if (!imageExtensions[file.mimetype]) {
-            return callback(new Error('Category image must be JPEG, PNG, or WEBP'));
+            return callback(new Error('Image must be JPEG, PNG, or WEBP'));
         }
         return callback(null, true);
     },
 });
 
-upload.finalizeCategoryImage = async (file, categoryId) => {
-    const folder = path.join(__dirname, '..', 'storage', 'uploads', 'category', String(categoryId), 'category');
+const finalizeImage = async (file, categoryId, entityFolder) => {
+    const folder = path.join(__dirname, '..', 'storage', 'uploads', 'category', String(categoryId), entityFolder);
     await fs.promises.mkdir(folder, { recursive: true });
     const destinationPath = path.join(folder, file.filename);
     await fs.promises.rename(file.path, destinationPath);
     file.finalPath = destinationPath;
-    return `/storage/uploads/category/${categoryId}/category/${file.filename}`;
+    return `/storage/uploads/category/${categoryId}/${entityFolder}/${file.filename}`;
+};
+
+upload.finalizeCategoryImage = (file, categoryId) => finalizeImage(file, categoryId, 'category');
+upload.finalizeSubcategoryImage = async (file, subcategoryId) => {
+    const folder = path.join(__dirname, '..', 'storage', 'uploads', 'subcategory', String(subcategoryId), 'subcategory');
+    await fs.promises.mkdir(folder, { recursive: true });
+    const destinationPath = path.join(folder, file.filename);
+    await fs.promises.rename(file.path, destinationPath);
+    file.finalPath = destinationPath;
+    return `/storage/uploads/subcategory/${subcategoryId}/subcategory/${file.filename}`;
 };
 
 upload.cleanupCategoryImage = async (file) => {

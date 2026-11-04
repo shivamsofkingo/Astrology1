@@ -27,6 +27,7 @@ import Localization from './pages/Localization';
 import CategoriesManagement from './pages/CategoriesManagement';
 import AddCategory from './pages/AddCategory';
 import SubcategoriesManagement from './pages/SubcategoriesManagement';
+import AddSubcategory from './pages/AddSubcategory';
 import Login from './pages/Login';
 
 // Generic Component for pages with no data yet
@@ -80,6 +81,7 @@ function App() {
                 <Route path="/categories/add" element={<AddCategory />} />
                 <Route path="/categories/:categoryId/edit" element={<AddCategory />} />
                 <Route path="/subcategories" element={<SubcategoriesManagement />} />
+                <Route path="/subcategories/add" element={<AddSubcategory />} />
                 <Route path="/subscriptions" element={<SubscriptionManagement />} />
                 <Route path="/settings" element={<SettingsConfiguration />} />
                 <Route path="/support" element={<SupportManagement />} />

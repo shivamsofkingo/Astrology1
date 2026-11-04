@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { AlertCircle, Layers, Package } from 'lucide-react';
+import { AlertCircle, Layers, Package, Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { getAllSubcategories } from '../api/subcategoryApi';
 
 const getImageUrl = (image) => {
@@ -38,6 +39,7 @@ const SubcategoryCard = ({ subcategory, categoryName }) => {
 };
 
 const SubcategoriesManagement = () => {
+  const navigate = useNavigate();
   const [subcategories, setSubcategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -70,14 +72,19 @@ const SubcategoriesManagement = () => {
             <Layers size={18} />
             <span className="text-[11px] font-semibold uppercase tracking-[0.16em]">Catalog</span>
           </div>
-          <h1 className="text-2xl font-semibold tracking-tight text-slate-900">Subcategories Management</h1>
+          <div className="flex flex-wrap items-center gap-3">
+            <h1 className="text-2xl font-semibold tracking-tight text-slate-900">Subcategories Management</h1>
+            {!loading && !error && (
+              <span className="rounded-full bg-[#F0FAFB] px-3 py-1 text-[11px] font-semibold text-[#008FB8]">
+                {subcategories.length} {subcategories.length === 1 ? 'subcategory' : 'subcategories'}
+              </span>
+            )}
+          </div>
           <p className="mt-1 text-sm text-slate-500">View all active subcategories across your categories.</p>
         </div>
-        {!loading && !error && (
-          <span className="shrink-0 self-start rounded-full bg-[#F0FAFB] px-3 py-1 text-[11px] font-semibold text-[#008FB8] sm:self-center">
-            {subcategories.length} {subcategories.length === 1 ? 'subcategory' : 'subcategories'}
-          </span>
-        )}
+        <button type="button" onClick={() => navigate('/subcategories/add')} className="inline-flex shrink-0 items-center gap-2 self-start rounded-lg bg-[#00BAF2] px-4 py-2.5 text-[13px] font-semibold text-white transition hover:bg-[#00a3d6] sm:self-center">
+          <Plus size={16} /> Add subcategory
+        </button>
       </header>
 
       {error ? (
