@@ -78,6 +78,7 @@ function App() {
                 <Route path="/offers" element={<OffersPromotions />} />
                 <Route path="/categories" element={<CategoriesManagement />} />
                 <Route path="/categories/add" element={<AddCategory />} />
+                <Route path="/categories/:categoryId/edit" element={<AddCategory />} />
                 <Route path="/subcategories" element={<SubcategoriesManagement />} />
                 <Route path="/subscriptions" element={<SubscriptionManagement />} />
                 <Route path="/settings" element={<SettingsConfiguration />} />

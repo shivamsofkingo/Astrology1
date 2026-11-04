@@ -45,4 +45,19 @@ upload.cleanupCategoryImage = async (file) => {
     await Promise.allSettled(paths.map((filePath) => fs.promises.unlink(filePath)));
 };
 
+upload.deleteCategoryImage = async (imagePath, categoryId) => {
+    const imagePrefix = `/storage/uploads/category/${categoryId}/category/`;
+    if (typeof imagePath !== 'string' || !imagePath.startsWith(imagePrefix)) return;
+
+    const fileName = imagePath.slice(imagePrefix.length);
+    if (!fileName || path.basename(fileName) !== fileName) return;
+
+    const imageFile = path.join(__dirname, '..', 'storage', 'uploads', 'category', String(categoryId), 'category', fileName);
+    try {
+        await fs.promises.unlink(imageFile);
+    } catch (error) {
+        if (error.code !== 'ENOENT') throw error;
+    }
+};
+
 module.exports = upload;

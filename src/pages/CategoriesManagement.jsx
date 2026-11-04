@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AlertCircle, Package, Plus, ShoppingBag } from 'lucide-react';
+import { AlertCircle, Package, Pencil, Plus, ShoppingBag } from 'lucide-react';
 import { getCategories } from '../api/categoryApi';
 
 const getCategoryImageUrl = (image) => {
@@ -15,12 +15,12 @@ const getCategoryImageUrl = (image) => {
   }
 };
 
-const CategoryCard = ({ category }) => {
+const CategoryCard = ({ category, onEdit }) => {
   const [imageFailed, setImageFailed] = useState(false);
   const imageUrl = getCategoryImageUrl(category.image);
 
   return (
-    <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+    <article className="relative overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
       {imageUrl && !imageFailed ? (
         <img
           src={imageUrl}
@@ -34,7 +34,7 @@ const CategoryCard = ({ category }) => {
           <Package size={32} strokeWidth={1.5} />
         </div>
       )}
-      <div className="p-4">
+      <div className="p-4 pb-14">
         <h2 className="truncate text-[14px] font-semibold text-slate-800">{category.name}</h2>
         {category.description ? (
           <p className="mt-1 line-clamp-2 min-h-10 text-[12px] leading-5 text-slate-500">
@@ -44,10 +44,19 @@ const CategoryCard = ({ category }) => {
           <p className="mt-1 min-h-10 text-[12px] leading-5 text-slate-400">No description provided.</p>
         )}
         {category.slug && (
-          <p className="mt-3 truncate border-t border-slate-100 pt-3 text-[10px] font-medium uppercase tracking-wide text-slate-400">
+          <p className="mt-3 truncate border-t border-slate-100 pt-3 pr-10 text-[10px] font-medium uppercase tracking-wide text-slate-400">
             {category.slug}
           </p>
         )}
+        <button
+          type="button"
+          onClick={() => onEdit(category.id)}
+          aria-label={`Edit ${category.name}`}
+          title="Edit category"
+          className="absolute bottom-3 right-3 inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-600 transition hover:bg-[#F0FAFB] hover:text-[#008FB8]"
+        >
+          <Pencil size={16} />
+        </button>
       </div>
     </article>
   );
@@ -134,7 +143,11 @@ const CategoriesManagement = () => {
       ) : (
         <section aria-label="Categories" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {categoryState.categories.map((category) => (
-              <CategoryCard key={category.id} category={category} />
+              <CategoryCard
+                key={category.id}
+                category={category}
+                onEdit={(categoryId) => navigate(`/categories/${categoryId}/edit`)}
+              />
           ))}
         </section>
       )}

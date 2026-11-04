@@ -5,6 +5,7 @@ const categoryUpload = require('../middleware/categoryUploadMiddleware');
 const router = express.Router();
 
 router.get("/", categoryController.getCategories);
+router.get("/:id", categoryController.getCategoryById);
 router.post("/", (req, res, next) => {
     categoryUpload.single('image')(req, res, (error) => {
         if (error) {
@@ -14,5 +15,14 @@ router.post("/", (req, res, next) => {
         return next();
     });
 }, categoryController.createCategory);
+router.patch("/:id", (req, res, next) => {
+    categoryUpload.single('image')(req, res, (error) => {
+        if (error) {
+            const status = error.code === 'LIMIT_FILE_SIZE' ? 413 : 400;
+            return res.status(status).json({ success: false, message: error.message });
+        }
+        return next();
+    });
+}, categoryController.updateCategory);
 
 module.exports = router;
