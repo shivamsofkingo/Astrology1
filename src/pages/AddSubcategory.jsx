@@ -1,19 +1,32 @@
 import { useEffect, useState } from 'react';
 import { ArrowLeft, Image as ImageIcon, Save, UploadCloud, X } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getCategories } from '../api/categoryApi';
-import { createSubcategory } from '../api/subcategoryApi';
+import { createSubcategory, getAllSubcategories, updateSubcategory } from '../api/subcategoryApi';
 
 const fieldClassName = 'w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-[13px] text-slate-700 outline-none transition focus:border-[#00BAF2] focus:ring-2 focus:ring-[#00BAF2]/10';
+const getImageUrl = (image) => {
+  if (!image) return '';
+  try {
+    const apiUrl = import.meta.env.VITE_API_URL || window.location.origin;
+    const mediaBase = new URL(apiUrl, window.location.origin);
+    mediaBase.pathname = mediaBase.pathname.replace(/\/api\/?$/, '/');
+    return new URL(image, mediaBase).toString();
+  } catch { return image; }
+};
 
 const AddSubcategory = () => {
   const navigate = useNavigate();
+  const { subcategoryId } = useParams();
+  const isEditing = Boolean(subcategoryId);
   const [categories, setCategories] = useState([]);
   const [categoryId, setCategoryId] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState('');
+  const [currentImage, setCurrentImage] = useState('');
+  const [removeImage, setRemoveImage] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -24,17 +37,24 @@ const AddSubcategory = () => {
 
   useEffect(() => {
     let active = true;
-    getCategories().then((response) => {
+    Promise.all([getCategories(), isEditing ? getAllSubcategories() : Promise.resolve(null)]).then(([response, subcategoryResponse]) => {
       if (!response?.success || !Array.isArray(response.data)) throw new Error(response?.message || 'Could not load categories.');
       if (active) {
         setCategories(response.data);
-        setCategoryId(response.data.length ? String(response.data[0].id) : '');
+        const subcategory = subcategoryResponse?.data?.find((item) => String(item.id) === String(subcategoryId));
+        if (isEditing && !subcategory) throw new Error('Subcategory not found.');
+        setCategoryId(subcategory ? String(subcategory.categoryId) : response.data.length ? String(response.data[0].id) : '');
+        if (subcategory) {
+          setName(subcategory.name || '');
+          setDescription(subcategory.description || '');
+          setCurrentImage(subcategory.image || '');
+        }
       }
     }).catch((loadError) => {
       if (active) setError(loadError.response?.data?.message || loadError.message || 'Could not load categories.');
     }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
-  }, []);
+  }, [isEditing, subcategoryId]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -46,7 +66,9 @@ const AddSubcategory = () => {
       payload.append('description', description.trim());
       payload.append('categoryId', categoryId);
       if (image) payload.append('image', image);
-      await createSubcategory(payload);
+      if (removeImage) payload.append('removeImage', 'true');
+      if (isEditing) await updateSubcategory(subcategoryId, payload);
+      else await createSubcategory(payload);
       navigate('/subcategories', { replace: true });
     } catch (submitError) {
       setError(submitError.response?.data?.message || submitError.message || 'Could not create subcategory.');
@@ -63,7 +85,7 @@ const AddSubcategory = () => {
       <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
         <div className="mb-6">
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#00A3D6]">Category Management</p>
-          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">Add New Subcategory</h1>
+          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">{isEditing ? 'Edit Subcategory' : 'Add New Subcategory'}</h1>
         </div>
         {loading ? <p className="text-[13px] text-slate-500">Loading categories...</p> : categories.length === 0 ? (
           <p className="text-[13px] text-slate-500">Create an active category before adding a subcategory.</p>
@@ -104,14 +126,18 @@ const AddSubcategory = () => {
                   }
                   setImage(selectedImage);
                   setImagePreview(selectedImage ? URL.createObjectURL(selectedImage) : '');
+                  setRemoveImage(false);
                   setError('');
                 }} />
               </label>
-              {image && (
+              {(image || (currentImage && !removeImage)) && (
                 <div className="flex items-center gap-3 rounded-lg border border-slate-200 p-3">
-                  {imagePreview ? <img src={imagePreview} alt="Subcategory preview" className="h-16 w-16 rounded-md object-cover" /> : <ImageIcon size={24} className="text-slate-400" />}
-                  <span className="min-w-0 flex-1 truncate text-[12px] text-slate-600">{image.name}</span>
-                  <button type="button" onClick={() => { setImage(null); setImagePreview(''); }} aria-label="Remove subcategory image" className="rounded-md p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700"><X size={16} /></button>
+                  {image ? <img src={imagePreview} alt="Subcategory preview" className="h-16 w-16 rounded-md object-cover" /> : currentImage && !removeImage ? <img src={getImageUrl(currentImage)} alt="Subcategory preview" className="h-16 w-16 rounded-md object-cover" /> : <ImageIcon size={24} className="text-slate-400" />}
+                  <span className="min-w-0 flex-1 truncate text-[12px] text-slate-600">{image?.name || 'Current image'}</span>
+                  <button type="button" onClick={() => {
+                    if (image) { setImage(null); setImagePreview(''); }
+                    else setRemoveImage(true);
+                  }} aria-label="Remove subcategory image" className="rounded-md p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700"><X size={16} /></button>
                 </div>
               )}
             </div>
@@ -119,7 +145,7 @@ const AddSubcategory = () => {
             <div className="flex flex-col-reverse gap-3 border-t border-slate-100 pt-5 sm:flex-row sm:justify-end">
               <button type="button" onClick={() => navigate('/subcategories')} className="rounded-lg border border-slate-200 px-5 py-2.5 text-[13px] font-semibold text-slate-600 transition hover:bg-slate-50">Cancel</button>
               <button type="submit" disabled={saving || !categoryId} className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#00BAF2] px-5 py-2.5 text-[13px] font-semibold text-white transition hover:bg-[#00a3d6] disabled:cursor-not-allowed disabled:opacity-60">
-                <Save size={16} /> {saving ? 'Adding...' : 'Add subcategory'}
+                <Save size={16} /> {saving ? (isEditing ? 'Saving...' : 'Adding...') : (isEditing ? 'Save changes' : 'Add subcategory')}
               </button>
             </div>
           </form>

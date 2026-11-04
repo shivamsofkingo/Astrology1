@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { AlertCircle, Layers, Package, Plus } from 'lucide-react';
+import { AlertCircle, Layers, Package, Pencil, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { getAllSubcategories } from '../api/subcategoryApi';
 
@@ -15,24 +15,29 @@ const getImageUrl = (image) => {
   }
 };
 
-const SubcategoryCard = ({ subcategory, categoryName }) => {
+const SubcategoryCard = ({ subcategory, categoryName, onEdit }) => {
   const [imageFailed, setImageFailed] = useState(false);
   const imageUrl = getImageUrl(subcategory.image);
 
   return (
-    <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+    <article className="flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
       {imageUrl && !imageFailed ? (
         <img src={imageUrl} alt={subcategory.name} className="block h-36 w-full bg-slate-50 object-fill" loading="lazy" onError={() => setImageFailed(true)} />
       ) : (
         <div className="flex h-36 items-center justify-center bg-gradient-to-br from-[#F0FAFB] to-slate-100 text-[#00A3D6]"><Package size={32} strokeWidth={1.5} /></div>
       )}
-      <div className="p-4">
+      <div className="flex flex-1 flex-col p-4">
         <p className="mb-2 inline-flex rounded-full bg-[#F0FAFB] px-2.5 py-1 text-[11px] font-semibold text-[#008FB8]">
           Category: {categoryName}
         </p>
         <h2 className="font-semibold text-slate-800">{subcategory.name}</h2>
         {subcategory.description && <p className="mt-1 text-[12px] leading-5 text-slate-500">{subcategory.description}</p>}
         {subcategory.slug && <p className="mt-3 border-t border-slate-100 pt-3 text-[10px] font-medium uppercase tracking-wide text-slate-400">{subcategory.slug}</p>}
+        <div className="mt-auto flex justify-end pt-4">
+          <button type="button" onClick={() => onEdit(subcategory.id)} aria-label={`Edit ${subcategory.name}`} className="inline-flex items-center p-1 text-slate-500 transition hover:text-[#008FB8]">
+            <Pencil size={14} />
+          </button>
+        </div>
       </div>
     </article>
   );
@@ -102,6 +107,7 @@ const SubcategoriesManagement = () => {
             <SubcategoryCard
               key={subcategory.id}
               subcategory={subcategory}
+              onEdit={(subcategoryId) => navigate(`/subcategories/${subcategoryId}/edit`)}
               categoryName={
                 (typeof subcategory.category === 'string' ? subcategory.category : subcategory.category?.name)
                 || subcategory.categoryName

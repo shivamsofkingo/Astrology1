@@ -13,5 +13,14 @@ router.post('/', (req, res, next) => {
         return next();
     });
 }, subcategoryController.createSubcategory);
+router.patch('/:id', (req, res, next) => {
+    categoryUpload.single('image')(req, res, (error) => {
+        if (error) {
+            const status = error.code === 'LIMIT_FILE_SIZE' ? 413 : 400;
+            return res.status(status).json({ success: false, message: error.message });
+        }
+        return next();
+    });
+}, subcategoryController.updateSubcategory);
 
 module.exports = router;

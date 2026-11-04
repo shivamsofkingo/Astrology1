@@ -82,6 +82,7 @@ function App() {
                 <Route path="/categories/:categoryId/edit" element={<AddCategory />} />
                 <Route path="/subcategories" element={<SubcategoriesManagement />} />
                 <Route path="/subcategories/add" element={<AddSubcategory />} />
+                <Route path="/subcategories/:subcategoryId/edit" element={<AddSubcategory />} />
                 <Route path="/subscriptions" element={<SubscriptionManagement />} />
                 <Route path="/settings" element={<SettingsConfiguration />} />
                 <Route path="/support" element={<SupportManagement />} />

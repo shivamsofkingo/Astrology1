@@ -70,4 +70,19 @@ upload.deleteCategoryImage = async (imagePath, categoryId) => {
     }
 };
 
+upload.deleteSubcategoryImage = async (imagePath, subcategoryId) => {
+    const imagePrefix = `/storage/uploads/subcategory/${subcategoryId}/subcategory/`;
+    if (typeof imagePath !== 'string' || !imagePath.startsWith(imagePrefix)) return;
+
+    const fileName = imagePath.slice(imagePrefix.length);
+    if (!fileName || path.basename(fileName) !== fileName) return;
+
+    const imageFile = path.join(__dirname, '..', 'storage', 'uploads', 'subcategory', String(subcategoryId), 'subcategory', fileName);
+    try {
+        await fs.promises.unlink(imageFile);
+    } catch (error) {
+        if (error.code !== 'ENOENT') throw error;
+    }
+};
+
 module.exports = upload;
